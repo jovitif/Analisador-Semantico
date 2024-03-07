@@ -6,13 +6,20 @@ using namespace std;
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
-
 %}
 
 %token DIGIT
 %token ALPHA
+%token Classe Individuo Eol Reservada Especial Propriedade TipoDado Cardinalidade
+
+
+
+%option noyywrap
+
+
 
 %%
+
 
 calc: 	expr '\n'		{ cout << $1 << endl; }
 	| 	calc expr '\n' 	{ cout << $2 << endl; }	
@@ -36,6 +43,8 @@ fact:	'(' expr ')'	{ $$ = $2;}
 int yylex() 
 {
 	char ch;
+	String str;
+
 	ch = cin.get();
 
     if (isdigit(ch))
