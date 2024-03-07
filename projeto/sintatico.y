@@ -10,6 +10,7 @@ void yyerror(const char *);
 %}
 
 %token DIGIT
+%token ALPHA
 
 %%
 
@@ -21,12 +22,13 @@ expr: 	expr '+' term	{ $$ = $1 + $3; }
 	| 	term
 	;
 
-term:	term '*' fact	{ $$ = $1 * $3; }
+term:	term '*' fact	{ $$ = $1 * $3, cout << "realizando multiplicação!!!!\n"; }
 	|	fact
 	;
 
-fact:	'(' expr ')'	{ $$ = $2; }
-	|	DIGIT
+fact:	'(' expr ')'	{ $$ = $2;}
+	|	DIGIT			{cout << "DIGITO\n";}
+	|	ALPHA			{cout << "ALFABETO\n", $$=$1;}
 	;
 
 %%
@@ -40,6 +42,8 @@ int yylex()
 	{
 		yylval = ch - '0';
 		return DIGIT;
+	}else if(isalpha(ch)){
+		return ALPHA;
 	}
 
 	return ch;

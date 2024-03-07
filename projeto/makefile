@@ -13,4 +13,4 @@ sintatico.tab.c: sintatico.y
 	$(YACC) sintatico.y
 
 clean:
-	rm calc calc.tab.c
+	rm sintatico sintatico.tab.c
