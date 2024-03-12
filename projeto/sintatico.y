@@ -1,69 +1,76 @@
 %{
+/* analisador sintático para uma calculadora básica */
 #include <iostream>
-#include <cctype>
-using namespace std;
+using std::cout;
 
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
+
+/* cada letra do alfabeto é uma variável */
+double variables[26];
 %}
 
-%token DIGIT
-%token ALPHA
-%token Classe Individuo Eol Reservada Especial Propriedade TipoDado Cardinalidade
+%union {
+	double num;
+	int ind;
+	char *classe;
+	char *individuo;
+	char *reservada;
+}
 
+%token <ind> VAR
+%token <num> NUM
+%token <classe> CLASSE
+%token <individuo> INDIVIDUO
+%token <reservada> RESERVADA
+%type <num> expr
 
-
-%option noyywrap
-
-
+%left '+' '-'
+%left '*' '/'
+%nonassoc UMINUS
 
 %%
 
-
-calc: 	expr '\n'		{ cout << $1 << endl; }
-	| 	calc expr '\n' 	{ cout << $2 << endl; }	
+math: math calc '\n'
+	| calc '\n'
 	;
 
-expr: 	expr '+' term	{ $$ = $1 + $3; }
-	| 	term
-	;
+calc: VAR '=' expr 			{ variables[$1] = $3; } 	
+	| expr					{ cout << "= " << $1 << "\n"; }
+	; 
 
-term:	term '*' fact	{ $$ = $1 * $3, cout << "realizando multiplicação!!!!\n"; }
-	|	fact
-	;
-
-fact:	'(' expr ')'	{ $$ = $2;}
-	|	DIGIT			{cout << "DIGITO\n";}
-	|	ALPHA			{cout << "ALFABETO\n", $$=$1;}
+expr: expr '+' expr			{ $$ = $1 + $3; }
+	| expr '-' expr   		{ $$ = $1 - $3; }
+	| expr '*' expr			{ $$ = $1 * $3; }
+	| expr '/' expr			{ 
+								if ($3 == 0)
+									yyerror("divisão por zero");
+								else
+									$$ = $1 / $3; 
+							}
+	| '(' expr ')'			{ $$ = $2; }
+	| '-' expr %prec UMINUS { $$ = - $2; }
+	| VAR					{ $$ = variables[$1]; }
+	| NUM
+	| CLASSE					{cout << "uma classe";}
+	| INDIVIDUO					{cout << "um individuo";}
+	| RESERVADA					{cout << "palavra reservada";}
 	;
 
 %%
-
-int yylex() 
-{
-	char ch;
-	String str;
-
-	ch = cin.get();
-
-    if (isdigit(ch))
-	{
-		yylval = ch - '0';
-		return DIGIT;
-	}else if(isalpha(ch)){
-		return ALPHA;
-	}
-
-	return ch;
-}
-
-void yyerror(const char * s)
-{
-   	cout << "ERRO: " << s << endl;
-}
 
 int main()
 {
 	yyparse();
+}
+
+void yyerror(const char * s)
+{
+	/* variáveis definidas no analisador léxico */
+	extern int yylineno;    
+	extern char * yytext;   
+	
+	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
+    cout << "Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
 }

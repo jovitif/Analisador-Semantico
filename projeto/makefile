@@ -1,17 +1,19 @@
+# Dependências
+all: teste
 
 # Compiladores
 CPP=g++
-Bison=bison
-Lex=flex
+BISON=bison
+LEX=flex
 
-# Dependências
-all: lex.yy.c sintatico.tab.c
-		$(cpp) lex.yy.c sintatico.tab.c -std=c++17 -o teste
+teste: lex.yy.c sintatico.tab.c
+	$(CPP) lex.yy.c sintatico.tab.c -lfl -std=c++17 
+
 lex.yy.c: analisador.l
-	$(Lex) analisador.l
+	$(LEX) analisador.l
 
 sintatico.tab.c: sintatico.y
-	$(Bison) -d sintatico.y
+	$(BISON) -d sintatico.y
 
 clean:
-	rm analisador lex.yy.c sintatico.tab.c sintatico.tab.h
+	rm -f teste lex.yy.c sintatico.tab.c sintatico.tab.h a.out
