@@ -17,6 +17,8 @@ double variables[26];
 	char *classe;
 	char *individuo;
 	char *reservada;
+	char *equivalentTo;
+	char *subClassOf;
 }
 
 %token <ind> VAR
@@ -24,38 +26,18 @@ double variables[26];
 %token <classe> CLASSE
 %token <individuo> INDIVIDUO
 %token <reservada> RESERVADA
-%type <num> expr
+%token <equivalentTo> EQUIVALENT
+%token <subClassOf> SUBCLASSOF
 
 %left '+' '-'
 %left '*' '/'
 %nonassoc UMINUS
 
 %%
-
-math: math calc '\n'
-	| calc '\n'
+individuals: RESERVADA individuo {cout << "individuos \n";}
 	;
-
-calc: VAR '=' expr 			{ variables[$1] = $3; } 	
-	| expr					{ cout << "= " << $1 << "\n"; }
-	; 
-
-expr: expr '+' expr			{ $$ = $1 + $3; }
-	| expr '-' expr   		{ $$ = $1 - $3; }
-	| expr '*' expr			{ $$ = $1 * $3; }
-	| expr '/' expr			{ 
-								if ($3 == 0)
-									yyerror("divisão por zero");
-								else
-									$$ = $1 / $3; 
-							}
-	| '(' expr ')'			{ $$ = $2; }
-	| '-' expr %prec UMINUS { $$ = - $2; }
-	| VAR					{ $$ = variables[$1]; }
-	| NUM
-	| CLASSE					{cout << "uma classe";}
-	| INDIVIDUO					{cout << "um individuo";}
-	| RESERVADA					{cout << "palavra reservada";}
+individuo : INDIVIDUO individuo {cout << "teste \n";}
+	| 		INDIVIDUO  {cout << "teste \n";}
 	;
 
 %%

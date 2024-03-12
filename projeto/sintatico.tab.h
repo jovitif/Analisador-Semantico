@@ -59,7 +59,9 @@ extern int yydebug;
     CLASSE = 260,                  /* CLASSE  */
     INDIVIDUO = 261,               /* INDIVIDUO  */
     RESERVADA = 262,               /* RESERVADA  */
-    UMINUS = 263                   /* UMINUS  */
+    EQUIVALENT = 263,              /* EQUIVALENT  */
+    SUBCLASSOF = 264,              /* SUBCLASSOF  */
+    UMINUS = 265                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -75,8 +77,10 @@ union YYSTYPE
 	char *classe;
 	char *individuo;
 	char *reservada;
+	char *equivalentTo;
+	char *subClassOf;
 
-#line 80 "sintatico.tab.h"
+#line 84 "sintatico.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
