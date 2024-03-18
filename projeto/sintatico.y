@@ -19,27 +19,38 @@ double variables[26];
 	char *reservada;
 	char *equivalentTo;
 	char *subClassOf;
+	char *classe_reservada;
+	char *especial;
 }
 
 %token <ind> VAR
 %token <num> NUM
 %token <classe> CLASSE
+%token <classe_reservada> CLASSE_RESERVADA
 %token <individuo> INDIVIDUO
 %token <reservada> RESERVADA
 %token <equivalentTo> EQUIVALENT
 %token <subClassOf> SUBCLASSOF
+%token <especial> ESPECIAL
 
 %left '+' '-'
 %left '*' '/'
 %nonassoc UMINUS
 
 %%
+instrucao: individuals | coberta;
 individuals: RESERVADA individuo {cout << "individuos \n";}
 	;
 individuo : INDIVIDUO individuo {cout << "teste \n";}
 	| 		INDIVIDUO  {cout << "teste \n";}
 	;
-
+//primitiva:
+//definida:
+//fechamento:
+//aninhada:
+//enumerada:
+coberta: CLASSE_RESERVADA CLASSE RESERVADA coberta2 
+coberta2:	CLASSE | CLASSE ESPECIAL | coberta2 {cout << "Classe coberta\n";};
 %%
 
 int main()

@@ -11,6 +11,9 @@ var     [a-z]
 classe [A-Z][a-zA-Z_]
 individuo [A-Z][a-zA-Z0-9_]*[0-9]+
 eol  \n
+/*Class: Spiciness EquivalentTo: {Hot , Medium , Mild}*/
+/*Classe_reservada classe especial */
+classe_reservada (Class:)
 reservada (some|all|value|min|max|exactly|that|not|and|only|or|Class:|EquivalentTo:|Individuals:|SubClassOf:|DisjointClasses:)
 equivalentTo (EquivalentTo:)
 especial ("{"|"}"|"("|")"|"["|"]"|","|"<"|">"|"=")
@@ -24,9 +27,11 @@ cardinalidade [0-9]+
 {numero}    { yylval.num = atof(yytext); return NUM; }
 {var}		{ yylval.ind = yytext[0] - 'a'; return VAR; }
 {reservada} { yylval.reservada = strdup(yytext); return RESERVADA; }
+{classe_reservada} {yylval.classe_reservada = strdup(yytext); return CLASSE_RESERVADA;}
 {individuo} { yylval.individuo = strdup(yytext); return INDIVIDUO; }
 {classe}   { yylval.classe = strdup(yytext); return CLASSE; }
 {equivalentTo} { yylval.equivalentTo = strdup(yytext); return EQUIVALENT;} 
+{especial} {yylval.especial = strdup(yytext); return ESPECIAL; }
 .|\n		{ return yytext[0]; }
 
 %%
