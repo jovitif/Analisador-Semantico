@@ -53,17 +53,28 @@ coberta: CLASSE_RESERVADA CLASSE RESERVADA coberta2
 coberta2:	CLASSE | CLASSE ESPECIAL | coberta2 {cout << "Classe coberta\n";};
 %%
 
-int main()
+extern FILE * yyin;  
+
+int main(int argc, char ** argv)
 {
+	if (argc > 1)
+	{
+		FILE * file;
+		file = fopen(argv[1], "r");
+		if (!file)
+		{
+			cout << "Arquivo " << argv[1] << " não encontrado!\n";
+			exit(1);
+		}
+		yyin = file;
+	}
+
 	yyparse();
 }
 
 void yyerror(const char * s)
 {
-	/* variáveis definidas no analisador léxico */
 	extern int yylineno;    
 	extern char * yytext;   
-	
-	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
-    cout << "Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+	cout << "Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
 }
