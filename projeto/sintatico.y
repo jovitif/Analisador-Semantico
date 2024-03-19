@@ -51,13 +51,20 @@ double variables[26];
 %%
 instrucao: classe_primitiva { cout << "uma classe primitiva\n";}
 			| classe_coberta { cout << "uma classe coberta\n";}
-			| classe_enumerada { cout << "uma classe enumerada\n";};
+			| classe_enumerada { cout << "uma classe enumerada\n";}
+			| classe_definida {cout << "uma classe definida\n";};
+
 
 classe_primitiva: classe subclassof | classe subclassof disjointclasses | classe subclassof individuos | classe subclassof disjointclasses individuos;
 
 classe_coberta: classe coberta;
 
 classe_enumerada: classe enumerada;
+
+classe_definida: classe equivalentto individuos | classe equivalentto;
+
+equivalentto: EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA CLASSE ESPECIAL
+			| EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA TIPODADO ESPECIAL ESPECIAL NUM ESPECIAL ESPECIAL;
 
 enumerada: EQUIVALENT_RESERVADA ESPECIAL enumerada_lista;
 
