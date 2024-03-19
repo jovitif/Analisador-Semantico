@@ -29,8 +29,8 @@ double variables[26];
 	char *propriedade_has;
 }
 
-%token <classe> CLASSE
-%token <classe_reservada> CLASSE_RESERVADA
+%token <classe> CLASSE 
+%token <classe_reservada> CLASSE_RESERVADA 
 %token <propriedade> PROPRIEDADE 
 %token <propriedade_isof> PROPRIEDADE_ISOF 
 %token <propriedade_has> PROPRIEDADE_HAS 
@@ -49,19 +49,21 @@ double variables[26];
 %nonassoc UMINUS
 
 %%
-instrucao: classe_primitiva { cout << "uma classe primitiva\n";};
+instrucao: classe_primitiva { cout << "uma classe primitiva\n";}
+			| classe_coberta { cout << "uma classe coberta\n";};
 
 classe_primitiva: classe subclassof | classe subclassof disjointclasses | classe subclassof individuos | classe subclassof disjointclasses individuos;
+
+classe_coberta: classe coberta;
+
+coberta:  EQUIVALENT_RESERVADA coberta_lista;
+coberta_lista: CLASSE RESERVADA coberta_lista | CLASSE;
 
 classe: CLASSE_RESERVADA CLASSE;
 
 subclassof: SUBCLASSOF_RESERVADA subclassof_lista;
 
-subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista
-				|  propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista
-				|  propriedade RESERVADA CLASSE
-				|  propriedade RESERVADA TIPODADO
-				;
+subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista |  propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista |  propriedade RESERVADA CLASSE |  propriedade RESERVADA TIPODADO;
 
 
 disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
