@@ -8,30 +8,41 @@ extern double variables[26];
 
 numero  [0-9]+("."[0-9]+)?
 var     [a-z]
-classe [A-Z][a-zA-Z_]
+
 individuo [A-Z][a-zA-Z0-9_]*[0-9]+
-eol  \n
+eol  [ \t\n]
+brancos [eol]+
 /*Class: Spiciness EquivalentTo: {Hot , Medium , Mild}*/
 /*Classe_reservada classe especial */
 classe_reservada (Class:)
-reservada (some|all|value|min|max|exactly|that|not|and|only|or|Class:|EquivalentTo:|Individuals:|SubClassOf:|DisjointClasses:)
+reservada (some|all|value|min|max|exactly|that|not|and|only|or)
 equivalentTo (EquivalentTo:)
+individuals (Individuals:)
+subclassof (SubClassOf:)
+disjointclasses (DisjointClasses:)
 especial ("{"|"}"|"("|")"|"["|"]"|","|"<"|">"|"=")
 propriedade  [a-z][A-Za-z0-9]*
+propriedade_has (has[A-Za-z]+)
+classe [A-Z][a-zA-Z_]+
+propriedade_isof {propriedade}("is"[A-Z][a-zA-Z_]+"of")
 tipoDado (owl|rdfs|xsd):[A-Za-z0-9_]+
 cardinalidade [0-9]+
 
 %%
 
-[\t ]+		{ ; /* ignora espaços em branco */ }
-{numero}    { yylval.num = atof(yytext); return NUM; }
-{var}		{ yylval.ind = yytext[0] - 'a'; return VAR; }
 {reservada} { yylval.reservada = strdup(yytext); return RESERVADA; }
 {classe_reservada} {yylval.classe_reservada = strdup(yytext); return CLASSE_RESERVADA;}
-{individuo} { yylval.individuo = strdup(yytext); return INDIVIDUO; }
-{classe}   { yylval.classe = strdup(yytext); return CLASSE; }
-{equivalentTo} { yylval.equivalentTo = strdup(yytext); return EQUIVALENT;} 
+{equivalentTo} { yylval.equivalentTo = strdup(yytext); return EQUIVALENT_RESERVADA;} 
+{individuals} { yylval.individuals = strdup(yytext); return INDIVIDUALS_RESERVADA;}
+{subclassof} {yylval.subclassof = strdup(yytext); return SUBCLASSOF_RESERVADA;}
+{disjointclasses} {yylval.disjointclasses = strdup(yytext); return DISJOINTCLASSES_RESERVADA;}
+{numero}    { yylval.num = atof(yytext); return NUM; }
 {especial} {yylval.especial = strdup(yytext); return ESPECIAL; }
-.|\n		{ return yytext[0]; }
+{propriedade_isof} {yylval.propriedade_isof = strdup(yytext); return PROPRIEDADE_ISOF;}
+{propriedade_has} {yylval.propriedade_has = strdup(yytext); return PROPRIEDADE_HAS;}
+{propriedade} {yylval.propriedade = strdup(yytext); return PROPRIEDADE;}
+{tipoDado} {yylval.tipoDado = strdup(yytext); return TIPODADO;}
+{classe}   { yylval.classe = strdup(yytext); return CLASSE; }
+{individuo} { yylval.individuo = strdup(yytext); return INDIVIDUO; }
 
 %%

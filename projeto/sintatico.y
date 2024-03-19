@@ -15,42 +15,66 @@ double variables[26];
 	double num;
 	int ind;
 	char *classe;
+	char *individuals;
 	char *individuo;
 	char *reservada;
 	char *equivalentTo;
-	char *subClassOf;
+	char *subclassof;
+	char *disjointclasses;
 	char *classe_reservada;
 	char *especial;
+	char *propriedade;
+	char *propriedade_isof;
+	char *tipoDado;
+	char *propriedade_has;
 }
 
-%token <ind> VAR
-%token <num> NUM
 %token <classe> CLASSE
 %token <classe_reservada> CLASSE_RESERVADA
-%token <individuo> INDIVIDUO
-%token <reservada> RESERVADA
-%token <equivalentTo> EQUIVALENT
-%token <subClassOf> SUBCLASSOF
-%token <especial> ESPECIAL
-
+%token <propriedade> PROPRIEDADE 
+%token <propriedade_isof> PROPRIEDADE_ISOF 
+%token <propriedade_has> PROPRIEDADE_HAS 
+%token <tipoDado> TIPODADO 
+%token <num> NUM 
+%token <individuo> INDIVIDUO 
+%token <individuals> INDIVIDUALS_RESERVADA 
+%token <reservada> RESERVADA 
+%token <equivalentTo> EQUIVALENT_RESERVADA 
+%token <subclassof> SUBCLASSOF_RESERVADA 
+%token <disjointclasses> DISJOINTCLASSES_RESERVADA 
+%token <especial> ESPECIAL 
+%token <ind> VAR
 %left '+' '-'
 %left '*' '/'
 %nonassoc UMINUS
 
 %%
-instrucao: individuals | coberta;
-individuals: RESERVADA individuo {cout << "individuos \n";}
-	;
-individuo : INDIVIDUO individuo {cout << "teste \n";}
-	| 		INDIVIDUO  {cout << "teste \n";}
-	;
-//primitiva:
-//definida:
-//fechamento:
-//aninhada:
-//enumerada:
-coberta: CLASSE_RESERVADA CLASSE RESERVADA coberta2 
-coberta2:	CLASSE | CLASSE ESPECIAL | coberta2 {cout << "Classe coberta\n";};
+instrucao: classe_primitiva { cout << "uma classe primitiva\n";};
+
+classe_primitiva: classe subclassof | classe subclassof disjointclasses | classe subclassof individuos | classe subclassof disjointclasses individuos;
+
+classe: CLASSE_RESERVADA CLASSE;
+
+subclassof: SUBCLASSOF_RESERVADA subclassof_lista;
+
+subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista
+				|  propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista
+				|  propriedade RESERVADA CLASSE
+				|  propriedade RESERVADA TIPODADO
+				;
+
+
+disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
+
+disjointclasses_lista: disjointclasses_lista ESPECIAL CLASSE | CLASSE;
+
+individuos: INDIVIDUALS_RESERVADA individuos_lista;
+
+individuos_lista: individuos_lista ESPECIAL INDIVIDUO | INDIVIDUO;
+
+propriedade: PROPRIEDADE | PROPRIEDADE_ISOF | PROPRIEDADE_HAS;
+
+
 %%
 
 extern FILE * yyin;  
