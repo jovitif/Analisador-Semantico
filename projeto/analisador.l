@@ -14,8 +14,9 @@ eol  [ \t\n]
 brancos [eol]+
 /*Class: Spiciness EquivalentTo: {Hot , Medium , Mild}*/
 /*Classe_reservada classe especial */
+
 classe_reservada (Class:)
-reservada (some|all|value|min|max|exactly|that|not|and|only|or)
+reservada (some|all|value|min|max|exactly|that|not|and|or)
 equivalentTo (EquivalentTo:)
 individuals (Individuals:)
 subclassof (SubClassOf:)
@@ -27,7 +28,8 @@ classe [A-Z][a-zA-Z_]+
 propriedade_isof {propriedade}("is"[A-Z][a-zA-Z_]+"of")
 tipoDado (owl|rdfs|xsd):[A-Za-z0-9_]+
 cardinalidade [0-9]+
-
+only (only)
+or (or)
 %%
 
 {reservada} { yylval.reservada = strdup(yytext); return RESERVADA; }
@@ -44,5 +46,10 @@ cardinalidade [0-9]+
 {tipoDado} {yylval.tipoDado = strdup(yytext); return TIPODADO;}
 {classe}   { yylval.classe = strdup(yytext); return CLASSE; }
 {individuo} { yylval.individuo = strdup(yytext); return INDIVIDUO; }
-
+{only} { yylval.only = strdup(yytext); return ONLY; }
+{or} {yylval.or = strdup(yytext); return OR;}
+"(" { yylval.abrePar = strdup(yytext); return abrePar; }
+")" { yylval.fechaPar = strdup(yytext); return fechaPar; }
+"{" { yylval.abreChave = strdup(yytext); return abreChave;}
+"}" { yylval.fechaChave = strdup(yytext); return fechaChave;}
 %%

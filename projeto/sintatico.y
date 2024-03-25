@@ -17,6 +17,8 @@ double variables[26];
 	char *classe;
 	char *individuals;
 	char *individuo;
+	char *only;
+	char *or;
 	char *reservada;
 	char *equivalentTo;
 	char *subclassof;
@@ -27,6 +29,11 @@ double variables[26];
 	char *propriedade_isof;
 	char *tipoDado;
 	char *propriedade_has;
+	char *abrePar;
+	char *fechaPar;
+	char *abreChave;
+	char *fechaChave;
+
 }
 
 %token <classe> CLASSE 
@@ -37,12 +44,16 @@ double variables[26];
 %token <tipoDado> TIPODADO 
 %token <num> NUM 
 %token <individuo> INDIVIDUO 
+%token <only> ONLY
+%token <or> OR
 %token <individuals> INDIVIDUALS_RESERVADA 
 %token <reservada> RESERVADA 
 %token <equivalentTo> EQUIVALENT_RESERVADA 
 %token <subclassof> SUBCLASSOF_RESERVADA 
 %token <disjointclasses> DISJOINTCLASSES_RESERVADA 
-%token <especial> ESPECIAL 
+%token <especial> ESPECIAL
+%token <abrePar> abrePar
+%token <fechaPar> fechaPar 
 %token <ind> VAR
 %left '+' '-'
 %left '*' '/'
@@ -78,8 +89,9 @@ classe: CLASSE_RESERVADA CLASSE;
 
 subclassof: SUBCLASSOF_RESERVADA subclassof_lista;
 
-subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista |  propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista |  propriedade RESERVADA CLASSE |  propriedade RESERVADA TIPODADO;
-
+subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista | propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista |  propriedade RESERVADA CLASSE 
+			|  propriedade RESERVADA TIPODADO |CLASSE ESPECIAL subclassof_lista| propriedade ONLY CLASSE {cout << "axioma de fechamento";} | propriedade ONLY CLASSE ESPECIAL subclassof_lista {cout << "axioma de fechamento";}
+			| propriedade abrePar PROPRIEDADE_HAS RESERVADA abrePar PROPRIEDADE_HAS RESERVADA CLASSE fechaPar fechaPar {cout << "aninhada";};
 
 disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
 
