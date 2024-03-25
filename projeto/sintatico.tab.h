@@ -62,17 +62,20 @@ extern int yydebug;
     TIPODADO = 263,                /* TIPODADO  */
     NUM = 264,                     /* NUM  */
     INDIVIDUO = 265,               /* INDIVIDUO  */
-    ONLY = 266,                    /* ONLY  */
-    INDIVIDUALS_RESERVADA = 267,   /* INDIVIDUALS_RESERVADA  */
-    RESERVADA = 268,               /* RESERVADA  */
-    EQUIVALENT_RESERVADA = 269,    /* EQUIVALENT_RESERVADA  */
-    SUBCLASSOF_RESERVADA = 270,    /* SUBCLASSOF_RESERVADA  */
-    DISJOINTCLASSES_RESERVADA = 271, /* DISJOINTCLASSES_RESERVADA  */
-    ESPECIAL = 272,                /* ESPECIAL  */
-    abrePar = 273,                 /* abrePar  */
-    fechaPar = 274,                /* fechaPar  */
-    VAR = 275,                     /* VAR  */
-    UMINUS = 276                   /* UMINUS  */
+    ONLY_RESERVADA = 266,          /* ONLY_RESERVADA  */
+    OR_RESERVADA = 267,            /* OR_RESERVADA  */
+    INDIVIDUALS_RESERVADA = 268,   /* INDIVIDUALS_RESERVADA  */
+    RESERVADA = 269,               /* RESERVADA  */
+    EQUIVALENT_RESERVADA = 270,    /* EQUIVALENT_RESERVADA  */
+    SUBCLASSOF_RESERVADA = 271,    /* SUBCLASSOF_RESERVADA  */
+    DISJOINTCLASSES_RESERVADA = 272, /* DISJOINTCLASSES_RESERVADA  */
+    ESPECIAL = 273,                /* ESPECIAL  */
+    ABREPAR = 274,                 /* ABREPAR  */
+    FECHAPAR = 275,                /* FECHAPAR  */
+    ABRECHAVE = 276,               /* ABRECHAVE  */
+    FECHACHAVE = 277,              /* FECHACHAVE  */
+    VAR = 278,                     /* VAR  */
+    UMINUS = 279                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -88,7 +91,8 @@ union YYSTYPE
 	char *classe;
 	char *individuals;
 	char *individuo;
-	char *only;
+	char *only_reservada;
+	char *or_reservada;
 	char *reservada;
 	char *equivalentTo;
 	char *subclassof;
@@ -101,8 +105,10 @@ union YYSTYPE
 	char *propriedade_has;
 	char *abrePar;
 	char *fechaPar;
+	char *abreChave;
+	char *fechaChave;
 
-#line 106 "sintatico.tab.h"
+#line 112 "sintatico.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

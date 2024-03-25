@@ -17,14 +17,21 @@ double variables[26];
 	char *classe;
 	char *individuals;
 	char *individuo;
-	char *only;
-	char *or;
-	char *reservada;
+	char *only_reservada;
+	char *or_reservada;
+	char *some_reservada;
+	char *all_reservada;
+	char *value_reservada;
+	char *min_reservada;
+	char *max_reservada;
+	char *exactly_reservada;
+	char *that_reservada;
+	char *not_reservada;
+	char *and_reservada;
 	char *equivalentTo;
 	char *subclassof;
 	char *disjointclasses;
 	char *classe_reservada;
-	char *especial;
 	char *propriedade;
 	char *propriedade_isof;
 	char *tipoDado;
@@ -33,7 +40,10 @@ double variables[26];
 	char *fechaPar;
 	char *abreChave;
 	char *fechaChave;
-
+	char *abreColchete;
+	char *fechaColchete;
+	char *virgula;
+	char *relop;
 }
 
 %token <classe> CLASSE 
@@ -44,16 +54,29 @@ double variables[26];
 %token <tipoDado> TIPODADO 
 %token <num> NUM 
 %token <individuo> INDIVIDUO 
-%token <only> ONLY
-%token <or> OR
+%token <only_reservada> ONLY_RESERVADA
+%token <or_reservada> OR_RESERVADA
+%token <some_reservada> SOME_RESERVADA
+%token <all_reservada> ALL_RESERVADA 
+%token <value_reservada> VALUE_RESERVADA
+%token <min_reservada> MIN_RESERVADA 
+%token <max_reservada> MAX_RESERVADA 
+%token <exactly_reservada> EXACTLY_RESERVADA 
+%token <that_reservada> THAT_RESERVADA
+%token <not_reservada> NOT_RESERVADA 
+%token <and_reservada> AND_RESERVADA 
 %token <individuals> INDIVIDUALS_RESERVADA 
-%token <reservada> RESERVADA 
 %token <equivalentTo> EQUIVALENT_RESERVADA 
 %token <subclassof> SUBCLASSOF_RESERVADA 
 %token <disjointclasses> DISJOINTCLASSES_RESERVADA 
-%token <especial> ESPECIAL
-%token <abrePar> abrePar
-%token <fechaPar> fechaPar 
+%token <abrePar> ABREPAR
+%token <fechaPar> FECHAPAR
+%token <abreChave> ABRECHAVE
+%token <fechaChave> FECHACHAVE
+%token <abreColchete> ABRECOLCHETE
+%token <fechaColchete> FECHACOLCHETE
+%token <virgula> VIRGULA
+%token <relop> RELOP
 %token <ind> VAR
 %left '+' '-'
 %left '*' '/'
@@ -77,29 +100,29 @@ classe_definida: classe equivalentto individuos | classe equivalentto;
 equivalentto: EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA CLASSE ESPECIAL
 			| EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA TIPODADO ESPECIAL ESPECIAL NUM ESPECIAL ESPECIAL;
 
-enumerada: EQUIVALENT_RESERVADA ESPECIAL enumerada_lista;
+enumerada: EQUIVALENT_RESERVADA ABRECHAVE enumerada_lista FECHACHAVE;
 
-enumerada_lista: CLASSE ESPECIAL enumerada_lista | CLASSE ESPECIAL ;
+enumerada_lista: CLASSE VIRGULA enumerada_lista | CLASSE;
 
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
-coberta_lista: CLASSE RESERVADA coberta_lista | CLASSE;
+coberta_lista: CLASSE OR_RESERVADA coberta_lista | CLASSE;
 
 classe: CLASSE_RESERVADA CLASSE;
 
 subclassof: SUBCLASSOF_RESERVADA subclassof_lista;
 
 subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista | propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista |  propriedade RESERVADA CLASSE 
-			|  propriedade RESERVADA TIPODADO |CLASSE ESPECIAL subclassof_lista| propriedade ONLY CLASSE {cout << "axioma de fechamento";} | propriedade ONLY CLASSE ESPECIAL subclassof_lista {cout << "axioma de fechamento";}
-			| propriedade abrePar PROPRIEDADE_HAS RESERVADA abrePar PROPRIEDADE_HAS RESERVADA CLASSE fechaPar fechaPar {cout << "aninhada";};
+			|  propriedade RESERVADA TIPODADO |CLASSE ESPECIAL subclassof_lista| propriedade ONLY_RESERVADA CLASSE {cout << "axioma de fechamento ";} | propriedade ONLY_RESERVADA CLASSE ESPECIAL subclassof_lista {cout << "axioma de fechamento";}
+			| propriedade ABREPAR PROPRIEDADE_HAS RESERVADA ABREPAR PROPRIEDADE_HAS RESERVADA CLASSE FECHAPAR FECHAPAR {cout << "aninhada";};
 
 disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
 
-disjointclasses_lista: disjointclasses_lista ESPECIAL CLASSE | CLASSE;
+disjointclasses_lista: disjointclasses_lista VIRGULA CLASSE | CLASSE;
 
 individuos: INDIVIDUALS_RESERVADA individuos_lista;
 
-individuos_lista: individuos_lista ESPECIAL INDIVIDUO | INDIVIDUO;
+individuos_lista: individuos_lista VIRGULA INDIVIDUO | INDIVIDUO;
 
 propriedade: PROPRIEDADE | PROPRIEDADE_ISOF | PROPRIEDADE_HAS;
 

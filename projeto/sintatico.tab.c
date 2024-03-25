@@ -119,40 +119,43 @@ enum yysymbol_kind_t
   YYSYMBOL_TIPODADO = 8,                   /* TIPODADO  */
   YYSYMBOL_NUM = 9,                        /* NUM  */
   YYSYMBOL_INDIVIDUO = 10,                 /* INDIVIDUO  */
-  YYSYMBOL_ONLY = 11,                      /* ONLY  */
-  YYSYMBOL_INDIVIDUALS_RESERVADA = 12,     /* INDIVIDUALS_RESERVADA  */
-  YYSYMBOL_RESERVADA = 13,                 /* RESERVADA  */
-  YYSYMBOL_EQUIVALENT_RESERVADA = 14,      /* EQUIVALENT_RESERVADA  */
-  YYSYMBOL_SUBCLASSOF_RESERVADA = 15,      /* SUBCLASSOF_RESERVADA  */
-  YYSYMBOL_DISJOINTCLASSES_RESERVADA = 16, /* DISJOINTCLASSES_RESERVADA  */
-  YYSYMBOL_ESPECIAL = 17,                  /* ESPECIAL  */
-  YYSYMBOL_abrePar = 18,                   /* abrePar  */
-  YYSYMBOL_fechaPar = 19,                  /* fechaPar  */
-  YYSYMBOL_VAR = 20,                       /* VAR  */
-  YYSYMBOL_21_ = 21,                       /* '+'  */
-  YYSYMBOL_22_ = 22,                       /* '-'  */
-  YYSYMBOL_23_ = 23,                       /* '*'  */
-  YYSYMBOL_24_ = 24,                       /* '/'  */
-  YYSYMBOL_UMINUS = 25,                    /* UMINUS  */
-  YYSYMBOL_YYACCEPT = 26,                  /* $accept  */
-  YYSYMBOL_instrucao = 27,                 /* instrucao  */
-  YYSYMBOL_classe_primitiva = 28,          /* classe_primitiva  */
-  YYSYMBOL_classe_coberta = 29,            /* classe_coberta  */
-  YYSYMBOL_classe_enumerada = 30,          /* classe_enumerada  */
-  YYSYMBOL_classe_definida = 31,           /* classe_definida  */
-  YYSYMBOL_equivalentto = 32,              /* equivalentto  */
-  YYSYMBOL_enumerada = 33,                 /* enumerada  */
-  YYSYMBOL_enumerada_lista = 34,           /* enumerada_lista  */
-  YYSYMBOL_coberta = 35,                   /* coberta  */
-  YYSYMBOL_coberta_lista = 36,             /* coberta_lista  */
-  YYSYMBOL_classe = 37,                    /* classe  */
-  YYSYMBOL_subclassof = 38,                /* subclassof  */
-  YYSYMBOL_subclassof_lista = 39,          /* subclassof_lista  */
-  YYSYMBOL_disjointclasses = 40,           /* disjointclasses  */
-  YYSYMBOL_disjointclasses_lista = 41,     /* disjointclasses_lista  */
-  YYSYMBOL_individuos = 42,                /* individuos  */
-  YYSYMBOL_individuos_lista = 43,          /* individuos_lista  */
-  YYSYMBOL_propriedade = 44                /* propriedade  */
+  YYSYMBOL_ONLY_RESERVADA = 11,            /* ONLY_RESERVADA  */
+  YYSYMBOL_OR_RESERVADA = 12,              /* OR_RESERVADA  */
+  YYSYMBOL_INDIVIDUALS_RESERVADA = 13,     /* INDIVIDUALS_RESERVADA  */
+  YYSYMBOL_RESERVADA = 14,                 /* RESERVADA  */
+  YYSYMBOL_EQUIVALENT_RESERVADA = 15,      /* EQUIVALENT_RESERVADA  */
+  YYSYMBOL_SUBCLASSOF_RESERVADA = 16,      /* SUBCLASSOF_RESERVADA  */
+  YYSYMBOL_DISJOINTCLASSES_RESERVADA = 17, /* DISJOINTCLASSES_RESERVADA  */
+  YYSYMBOL_ESPECIAL = 18,                  /* ESPECIAL  */
+  YYSYMBOL_ABREPAR = 19,                   /* ABREPAR  */
+  YYSYMBOL_FECHAPAR = 20,                  /* FECHAPAR  */
+  YYSYMBOL_ABRECHAVE = 21,                 /* ABRECHAVE  */
+  YYSYMBOL_FECHACHAVE = 22,                /* FECHACHAVE  */
+  YYSYMBOL_VAR = 23,                       /* VAR  */
+  YYSYMBOL_24_ = 24,                       /* '+'  */
+  YYSYMBOL_25_ = 25,                       /* '-'  */
+  YYSYMBOL_26_ = 26,                       /* '*'  */
+  YYSYMBOL_27_ = 27,                       /* '/'  */
+  YYSYMBOL_UMINUS = 28,                    /* UMINUS  */
+  YYSYMBOL_YYACCEPT = 29,                  /* $accept  */
+  YYSYMBOL_instrucao = 30,                 /* instrucao  */
+  YYSYMBOL_classe_primitiva = 31,          /* classe_primitiva  */
+  YYSYMBOL_classe_coberta = 32,            /* classe_coberta  */
+  YYSYMBOL_classe_enumerada = 33,          /* classe_enumerada  */
+  YYSYMBOL_classe_definida = 34,           /* classe_definida  */
+  YYSYMBOL_equivalentto = 35,              /* equivalentto  */
+  YYSYMBOL_enumerada = 36,                 /* enumerada  */
+  YYSYMBOL_enumerada_lista = 37,           /* enumerada_lista  */
+  YYSYMBOL_coberta = 38,                   /* coberta  */
+  YYSYMBOL_coberta_lista = 39,             /* coberta_lista  */
+  YYSYMBOL_classe = 40,                    /* classe  */
+  YYSYMBOL_subclassof = 41,                /* subclassof  */
+  YYSYMBOL_subclassof_lista = 42,          /* subclassof_lista  */
+  YYSYMBOL_disjointclasses = 43,           /* disjointclasses  */
+  YYSYMBOL_disjointclasses_lista = 44,     /* disjointclasses_lista  */
+  YYSYMBOL_individuos = 45,                /* individuos  */
+  YYSYMBOL_individuos_lista = 46,          /* individuos_lista  */
+  YYSYMBOL_propriedade = 47                /* propriedade  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -480,10 +483,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  9
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   67
+#define YYLAST   66
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  26
+#define YYNTOKENS  29
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  19
 /* YYNRULES -- Number of rules.  */
@@ -492,7 +495,7 @@ union yyalloc
 #define YYNSTATES  80
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   276
+#define YYMAXUTOK   279
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -510,7 +513,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,    23,    21,     2,    22,     2,    24,     2,     2,
+       2,     2,    26,    24,     2,    25,     2,    27,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -533,18 +536,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    25
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    28
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    58,    58,    59,    60,    61,    64,    64,    64,    64,
-      66,    68,    70,    70,    72,    73,    75,    77,    77,    79,
-      81,    81,    83,    85,    87,    87,    87,    88,    88,    88,
-      88,    89,    91,    93,    93,    95,    97,    97,    99,    99,
-      99
+       0,    64,    64,    65,    66,    67,    70,    70,    70,    70,
+      72,    74,    76,    76,    78,    79,    81,    83,    83,    85,
+      87,    87,    89,    91,    93,    93,    93,    94,    94,    94,
+      94,    95,    97,    99,    99,   101,   103,   103,   105,   105,
+     105
 };
 #endif
 
@@ -562,15 +565,15 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "CLASSE",
   "CLASSE_RESERVADA", "PROPRIEDADE", "PROPRIEDADE_ISOF", "PROPRIEDADE_HAS",
-  "TIPODADO", "NUM", "INDIVIDUO", "ONLY", "INDIVIDUALS_RESERVADA",
-  "RESERVADA", "EQUIVALENT_RESERVADA", "SUBCLASSOF_RESERVADA",
-  "DISJOINTCLASSES_RESERVADA", "ESPECIAL", "abrePar", "fechaPar", "VAR",
-  "'+'", "'-'", "'*'", "'/'", "UMINUS", "$accept", "instrucao",
-  "classe_primitiva", "classe_coberta", "classe_enumerada",
-  "classe_definida", "equivalentto", "enumerada", "enumerada_lista",
-  "coberta", "coberta_lista", "classe", "subclassof", "subclassof_lista",
-  "disjointclasses", "disjointclasses_lista", "individuos",
-  "individuos_lista", "propriedade", YY_NULLPTR
+  "TIPODADO", "NUM", "INDIVIDUO", "ONLY_RESERVADA", "OR_RESERVADA",
+  "INDIVIDUALS_RESERVADA", "RESERVADA", "EQUIVALENT_RESERVADA",
+  "SUBCLASSOF_RESERVADA", "DISJOINTCLASSES_RESERVADA", "ESPECIAL",
+  "ABREPAR", "FECHAPAR", "ABRECHAVE", "FECHACHAVE", "VAR", "'+'", "'-'",
+  "'*'", "'/'", "UMINUS", "$accept", "instrucao", "classe_primitiva",
+  "classe_coberta", "classe_enumerada", "classe_definida", "equivalentto",
+  "enumerada", "enumerada_lista", "coberta", "coberta_lista", "classe",
+  "subclassof", "subclassof_lista", "disjointclasses",
+  "disjointclasses_lista", "individuos", "individuos_lista", "propriedade", YY_NULLPTR
 };
 
 static const char *
@@ -594,14 +597,14 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      10,     5,    19,   -34,   -34,   -34,   -34,    12,   -34,   -34,
-      -2,    15,    16,   -34,   -34,    -3,    17,    26,   -34,    14,
-     -34,   -34,   -34,   -34,    -8,    22,   -34,    30,    16,   -34,
-      -1,    18,   -34,    15,    31,     3,    29,   -34,    20,   -34,
-      21,   -34,    27,    32,   -34,    26,   -34,    24,    25,    28,
-      33,    34,    40,    44,    35,   -34,    15,    15,    15,    36,
-     -34,   -34,     4,   -34,   -34,   -34,    42,    38,    39,    37,
-     -34,    41,    48,    43,    45,    46,    47,    50,   -34,   -34
+       4,    12,    14,   -34,   -34,   -34,   -34,    11,   -34,   -34,
+      -2,    15,    16,   -34,   -34,    -4,    17,    25,   -34,    18,
+     -34,   -34,   -34,   -34,    -7,    20,   -34,    29,    16,   -34,
+      -1,    19,   -34,    15,    30,     2,    27,   -34,    21,   -34,
+      22,   -34,    24,    28,   -34,    25,   -34,    23,    26,    31,
+      32,    33,    39,    42,    34,   -34,    15,    15,    15,    35,
+     -34,   -34,     3,   -34,   -34,   -34,    40,    37,    38,    36,
+     -34,    41,    48,    43,    44,    45,    46,    47,   -34,   -34
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -623,7 +626,7 @@ static const yytype_int8 yydefact[] =
 static const yytype_int8 yypgoto[] =
 {
      -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,     8,   -34,
-      49,   -34,   -34,   -33,   -34,   -34,   -11,   -34,   -34
+      50,   -34,   -34,   -33,   -34,   -34,   -12,   -34,   -34
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -638,48 +641,48 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      46,    16,    42,    34,    29,    35,    48,    67,     8,    25,
-      36,    49,    68,    27,     1,    17,    43,    41,    19,     9,
-      20,    21,    22,    63,    64,    65,    10,    11,    25,    31,
-      30,    33,    37,    39,    47,    45,    50,    51,    52,    54,
-      53,    56,    57,    61,    60,    58,    59,    42,    62,    69,
-      72,    74,    75,    55,    66,    70,    71,     0,    73,    18,
-       0,     0,     0,    77,    76,     0,    78,    79
+      46,    16,    42,    29,    34,    48,    67,    35,     1,    25,
+      49,    68,    36,    27,     9,     8,    41,    43,    19,    17,
+      20,    21,    22,    63,    64,    65,    10,    11,    31,    25,
+      37,    30,    39,    47,    50,    54,    33,    45,    53,    51,
+      52,    56,    61,    60,    57,    42,    59,    69,    62,    58,
+      72,    74,    75,    55,    66,    70,    71,     0,     0,    73,
+      18,     0,     0,    77,    76,    79,    78
 };
 
 static const yytype_int8 yycheck[] =
 {
-      33,     3,     3,    11,    15,    13,     3,     3,     3,    12,
-      18,     8,     8,    16,     4,    17,    17,    28,     3,     0,
-       5,     6,     7,    56,    57,    58,    14,    15,    12,     3,
-      13,    17,    10,     3,     3,    17,     7,    17,    17,     7,
-      13,    17,    17,     3,    10,    17,    13,     3,    13,     7,
-      13,     3,     9,    45,    18,    17,    17,    -1,    17,    10,
-      -1,    -1,    -1,    17,    19,    -1,    19,    17
+      33,     3,     3,    15,    11,     3,     3,    14,     4,    13,
+       8,     8,    19,    17,     0,     3,    28,    18,     3,    21,
+       5,     6,     7,    56,    57,    58,    15,    16,     3,    13,
+      10,    14,     3,     3,     7,     7,    18,    18,    14,    18,
+      18,    18,     3,    10,    18,     3,    14,     7,    14,    18,
+      14,     3,     9,    45,    19,    18,    18,    -1,    -1,    18,
+      10,    -1,    -1,    18,    20,    18,    20
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     4,    27,    28,    29,    30,    31,    37,     3,     0,
-      14,    15,    32,    33,    35,    38,     3,    17,    36,     3,
-       5,     6,     7,    39,    44,    12,    42,    16,    40,    42,
-      13,     3,    34,    17,    11,    13,    18,    10,    43,     3,
-      41,    42,     3,    17,    36,    17,    39,     3,     3,     8,
-       7,    17,    17,    13,     7,    34,    17,    17,    17,    13,
-      10,     3,    13,    39,    39,    39,    18,     3,     8,     7,
-      17,    17,    13,    17,     3,     9,    19,    17,    19,    17
+       0,     4,    30,    31,    32,    33,    34,    40,     3,     0,
+      15,    16,    35,    36,    38,    41,     3,    21,    39,     3,
+       5,     6,     7,    42,    47,    13,    45,    17,    43,    45,
+      14,     3,    37,    18,    11,    14,    19,    10,    46,     3,
+      44,    45,     3,    18,    39,    18,    42,     3,     3,     8,
+       7,    18,    18,    14,     7,    37,    18,    18,    18,    14,
+      10,     3,    14,    42,    42,    42,    19,     3,     8,     7,
+      18,    18,    14,    18,     3,     9,    20,    18,    20,    18
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    26,    27,    27,    27,    27,    28,    28,    28,    28,
-      29,    30,    31,    31,    32,    32,    33,    34,    34,    35,
-      36,    36,    37,    38,    39,    39,    39,    39,    39,    39,
-      39,    39,    40,    41,    41,    42,    43,    43,    44,    44,
-      44
+       0,    29,    30,    30,    30,    30,    31,    31,    31,    31,
+      32,    33,    34,    34,    35,    35,    36,    37,    37,    38,
+      39,    39,    40,    41,    42,    42,    42,    42,    42,    42,
+      42,    42,    43,    44,    44,    45,    46,    46,    47,    47,
+      47
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1153,49 +1156,49 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* instrucao: classe_primitiva  */
-#line 58 "sintatico.y"
+#line 64 "sintatico.y"
                             { cout << "uma classe primitiva\n";}
-#line 1159 "sintatico.tab.c"
+#line 1162 "sintatico.tab.c"
     break;
 
   case 3: /* instrucao: classe_coberta  */
-#line 59 "sintatico.y"
+#line 65 "sintatico.y"
                                          { cout << "uma classe coberta\n";}
-#line 1165 "sintatico.tab.c"
+#line 1168 "sintatico.tab.c"
     break;
 
   case 4: /* instrucao: classe_enumerada  */
-#line 60 "sintatico.y"
+#line 66 "sintatico.y"
                                            { cout << "uma classe enumerada\n";}
-#line 1171 "sintatico.tab.c"
+#line 1174 "sintatico.tab.c"
     break;
 
   case 5: /* instrucao: classe_definida  */
-#line 61 "sintatico.y"
+#line 67 "sintatico.y"
                                           {cout << "uma classe definida\n";}
-#line 1177 "sintatico.tab.c"
+#line 1180 "sintatico.tab.c"
     break;
 
-  case 29: /* subclassof_lista: propriedade ONLY CLASSE  */
-#line 88 "sintatico.y"
-                                                                                                                     {cout << "axioma de fechamento";}
-#line 1183 "sintatico.tab.c"
+  case 29: /* subclassof_lista: propriedade ONLY_RESERVADA CLASSE  */
+#line 94 "sintatico.y"
+                                                                                                                               {cout << "axioma de fechamento ";}
+#line 1186 "sintatico.tab.c"
     break;
 
-  case 30: /* subclassof_lista: propriedade ONLY CLASSE ESPECIAL subclassof_lista  */
-#line 88 "sintatico.y"
-                                                                                                                                                                                                           {cout << "axioma de fechamento";}
-#line 1189 "sintatico.tab.c"
+  case 30: /* subclassof_lista: propriedade ONLY_RESERVADA CLASSE ESPECIAL subclassof_lista  */
+#line 94 "sintatico.y"
+                                                                                                                                                                                                                                {cout << "axioma de fechamento";}
+#line 1192 "sintatico.tab.c"
     break;
 
-  case 31: /* subclassof_lista: propriedade abrePar PROPRIEDADE_HAS RESERVADA abrePar PROPRIEDADE_HAS RESERVADA CLASSE fechaPar fechaPar  */
-#line 89 "sintatico.y"
+  case 31: /* subclassof_lista: propriedade ABREPAR PROPRIEDADE_HAS RESERVADA ABREPAR PROPRIEDADE_HAS RESERVADA CLASSE FECHAPAR FECHAPAR  */
+#line 95 "sintatico.y"
                                                                                                                                    {cout << "aninhada";}
-#line 1195 "sintatico.tab.c"
+#line 1198 "sintatico.tab.c"
     break;
 
 
-#line 1199 "sintatico.tab.c"
+#line 1202 "sintatico.tab.c"
 
       default: break;
     }
@@ -1388,7 +1391,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 102 "sintatico.y"
+#line 108 "sintatico.y"
 
 
 extern FILE * yyin;  
