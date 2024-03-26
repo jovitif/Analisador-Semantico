@@ -83,46 +83,50 @@ double variables[26];
 %nonassoc UMINUS
 
 %%
-instrucao: classe_primitiva { cout << "uma classe primitiva\n";}
-			| classe_coberta { cout << "uma classe coberta\n";}
-			| classe_enumerada { cout << "uma classe enumerada\n";}
-//			| classe_definida {cout << "uma classe definida\n";};
+classe:   classe_primitiva| classe_primitiva classe { cout << "uma classe primitiva\n";}
+			| classe_coberta| classe_coberta classe { cout << "uma classe coberta\n";}
+			| classe_enumerada| classe_enumerada classe { cout << "uma classe enumerada\n";}
+			| classe_definida| classe_definida classe {cout << "uma classe definida\n";};
 
 
-classe_primitiva: classe subclassof disjointclasses individuos;
+classe_primitiva: CLASSE_RESERVADA CLASSE subclassof disjointclasses individuos;
 
-classe_coberta: classe coberta|classe coberta individuos;
+classe_coberta: CLASSE_RESERVADA CLASSE coberta|CLASSE_RESERVADA CLASSE coberta individuos;
 
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
-coberta_lista: CLASSE OR_RESERVADA coberta_lista|CLASSE|AND_RESERVADA parenteses|CLASSE coberta_lista|AND_RESERVADA parenteses coberta_lista;
+coberta_lista: CLASSE OR_RESERVADA coberta_lista|CLASSE;
 
-parenteses: ABREPAR conteudo FECHAPAR;
-conteudo: propriedade reservada CLASSE|propriedade reservada TIPODADO|propriedade reservada parenteses {cout << "aninhada ";};
+classe_enumerada: CLASSE_RESERVADA CLASSE enumerada;
 
-classe_enumerada: classe enumerada;
-
-//classe_definida: classe equivalentto individuos | classe equivalentto;
-
-/*
-
-equivalentto: EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA CLASSE ESPECIAL
-			| EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA TIPODADO ESPECIAL ESPECIAL NUM ESPECIAL ESPECIAL;
-*/
 enumerada: EQUIVALENT_RESERVADA ABRECHAVE enumerada_lista FECHACHAVE;
-
 enumerada_lista: CLASSE VIRGULA enumerada_lista | CLASSE;
 
-classe: CLASSE_RESERVADA CLASSE;
+classe_definida: CLASSE_RESERVADA CLASSE equivalentto disjointclasses individuos;
 
-subclassof: SUBCLASSOF_RESERVADA subclassof_lista|;
 
-subclassof_lista: propriedade reservada CLASSE VIRGULA subclassof_lista | propriedade reservada TIPODADO VIRGULA subclassof_lista |  propriedade reservada CLASSE 
-			|  propriedade reservada TIPODADO |CLASSE VIRGULA subclassof_lista| propriedade ONLY_RESERVADA CLASSE {cout << "axioma de fechamento ";} 
-			| propriedade ONLY_RESERVADA CLASSE VIRGULA subclassof_lista {cout << "axioma de fechamento";}
-			| propriedade ABREPAR PROPRIEDADE_HAS reservada ABREPAR PROPRIEDADE_HAS reservada CLASSE FECHAPAR FECHAPAR {cout << "aninhada";};
+subclassof: SUBCLASSOF_RESERVADA definicao
+equivalentto: EQUIVALENT_RESERVADA definicao
 
-reservada: SOME_RESERVADA | ONLY_RESERVADA | OR_RESERVADA
+definicao: CLASSE 
+			| propriedade reservada CLASSE virgula
+			| propriedade reservada TIPODADO virgula
+			| CLASSE AND_RESERVADA parenteses virgula
+			| CLASSE AND_RESERVADA parenteses definicao virgula
+			| AND_RESERVADA parenteses virgula
+			| AND_RESERVADA parenteses definicao virgula
+			| CLASSE VIRGULA definicao virgula
+			| propriedade ONLY_RESERVADA CLASSE virgula {cout << "axioma de fechamento";}
+			| propriedade ONLY_RESERVADA parenteses virgula {cout << "axioma de fechamento";}
+			| propriedade quantificador NUM CLASSE virgula
+			| propriedade quantificador NUM TIPODADO virgula
+			| propriedade reservada TIPODADO ABRECOLCHETE RELOP NUM FECHACOLCHETE virgula
+
+parenteses: ABREPAR conteudo FECHAPAR;
+conteudo: definicao |propriedade reservada parenteses {cout << "aninhada ";};	
+
+
+reservada: SOME_RESERVADA | VALUE_RESERVADA| ALL_RESERVADA
 
 disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista| ;
 
@@ -133,8 +137,10 @@ individuos: INDIVIDUALS_RESERVADA individuos_lista | ;
 individuos_lista: individuos_lista VIRGULA INDIVIDUO | INDIVIDUO;
 
 propriedade: PROPRIEDADE | PROPRIEDADE_ISOF | PROPRIEDADE_HAS;
+
 quantificador: MIN_RESERVADA| MAX_RESERVADA|EXACTLY_RESERVADA;
 
+virgula: VIRGULA| ;
 
 
 %%
