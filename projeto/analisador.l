@@ -60,3 +60,6 @@ and {yylval.and_reservada = strdup(yytext); return AND_RESERVADA;}
 "<" {yylval.relop = strdup(yytext); return RELOP;}
 ">" {yylval.relop = strdup(yytext); return RELOP;}
 "=" {yylval.relop = strdup(yytext); return RELOP;}
+">=" {yylval.relop = strdup(yytext); return RELOP;}
+"<=" {yylval.relop = strdup(yytext); return RELOP;}
+"<>" {yylval.relop = strdup(yytext); return RELOP;}
