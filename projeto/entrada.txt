@@ -4,7 +4,7 @@ Class: Customer
         Person
          and (purchasedPizza some Pizza)
          and (hasPhone some xsd:string)
-    
+         
     Individuals:
         Customer1,
         Customer10,

@@ -89,15 +89,17 @@ instrucao: classe_primitiva { cout << "uma classe primitiva\n";}
 //			| classe_definida {cout << "uma classe definida\n";};
 
 
-classe_primitiva: classe subclassof | classe subclassof disjointclasses | classe subclassof individuos | classe subclassof disjointclasses individuos;
+classe_primitiva: classe subclassof disjointclasses individuos;
 
-classe_coberta: classe coberta;
+classe_coberta: classe coberta|classe coberta individuos;
 
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
-coberta_lista: CLASSE OR_RESERVADA coberta_lista |CLASSE AND_RESERVADA aninhada|CLASSE|;
+coberta_lista: CLASSE OR_RESERVADA coberta_lista|CLASSE|AND_RESERVADA parenteses|CLASSE coberta_lista|AND_RESERVADA parenteses coberta_lista;
 
-aninhada: ABREPAR PROPRIEDADE_HAS SOME_RESERVADA ABREPAR PROPRIEDADE_HAS VALUE_RESERVADA CLASSE FECHAPAR FECHAPAR  {cout << "aninhada ";}| ABREPAR PROPRIEDADE_HAS SOME_RESERVADA aninhada FECHAPAR|;
+parenteses: ABREPAR conteudo FECHAPAR;
+conteudo: propriedade reservada CLASSE|propriedade reservada TIPODADO|propriedade reservada parenteses {cout << "aninhada ";};
+
 classe_enumerada: classe enumerada;
 
 //classe_definida: classe equivalentto individuos | classe equivalentto;
@@ -113,7 +115,7 @@ enumerada_lista: CLASSE VIRGULA enumerada_lista | CLASSE;
 
 classe: CLASSE_RESERVADA CLASSE;
 
-subclassof: SUBCLASSOF_RESERVADA subclassof_lista;
+subclassof: SUBCLASSOF_RESERVADA subclassof_lista|;
 
 subclassof_lista: propriedade reservada CLASSE VIRGULA subclassof_lista | propriedade reservada TIPODADO VIRGULA subclassof_lista |  propriedade reservada CLASSE 
 			|  propriedade reservada TIPODADO |CLASSE VIRGULA subclassof_lista| propriedade ONLY_RESERVADA CLASSE {cout << "axioma de fechamento ";} 
@@ -122,15 +124,17 @@ subclassof_lista: propriedade reservada CLASSE VIRGULA subclassof_lista | propri
 
 reservada: SOME_RESERVADA | ONLY_RESERVADA | OR_RESERVADA
 
-disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
+disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista| ;
 
 disjointclasses_lista: disjointclasses_lista VIRGULA CLASSE | CLASSE;
 
-individuos: INDIVIDUALS_RESERVADA individuos_lista;
+individuos: INDIVIDUALS_RESERVADA individuos_lista | ; 
 
 individuos_lista: individuos_lista VIRGULA INDIVIDUO | INDIVIDUO;
 
 propriedade: PROPRIEDADE | PROPRIEDADE_ISOF | PROPRIEDADE_HAS;
+quantificador: MIN_RESERVADA| MAX_RESERVADA|EXACTLY_RESERVADA;
+
 
 
 %%
