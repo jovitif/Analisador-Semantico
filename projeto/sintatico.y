@@ -95,8 +95,9 @@ classe_coberta: classe coberta;
 
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
-coberta_lista: CLASSE OR_RESERVADA coberta_lista | CLASSE;
+coberta_lista: CLASSE OR_RESERVADA coberta_lista |CLASSE AND_RESERVADA aninhada|CLASSE|;
 
+aninhada: ABREPAR PROPRIEDADE_HAS SOME_RESERVADA ABREPAR PROPRIEDADE_HAS VALUE_RESERVADA CLASSE FECHAPAR FECHAPAR  {cout << "aninhada ";}| ABREPAR PROPRIEDADE_HAS SOME_RESERVADA aninhada FECHAPAR|;
 classe_enumerada: classe enumerada;
 
 //classe_definida: classe equivalentto individuos | classe equivalentto;
