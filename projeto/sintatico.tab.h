@@ -64,18 +64,29 @@ extern int yydebug;
     INDIVIDUO = 265,               /* INDIVIDUO  */
     ONLY_RESERVADA = 266,          /* ONLY_RESERVADA  */
     OR_RESERVADA = 267,            /* OR_RESERVADA  */
-    INDIVIDUALS_RESERVADA = 268,   /* INDIVIDUALS_RESERVADA  */
-    RESERVADA = 269,               /* RESERVADA  */
-    EQUIVALENT_RESERVADA = 270,    /* EQUIVALENT_RESERVADA  */
-    SUBCLASSOF_RESERVADA = 271,    /* SUBCLASSOF_RESERVADA  */
-    DISJOINTCLASSES_RESERVADA = 272, /* DISJOINTCLASSES_RESERVADA  */
-    ESPECIAL = 273,                /* ESPECIAL  */
-    ABREPAR = 274,                 /* ABREPAR  */
-    FECHAPAR = 275,                /* FECHAPAR  */
-    ABRECHAVE = 276,               /* ABRECHAVE  */
-    FECHACHAVE = 277,              /* FECHACHAVE  */
-    VAR = 278,                     /* VAR  */
-    UMINUS = 279                   /* UMINUS  */
+    SOME_RESERVADA = 268,          /* SOME_RESERVADA  */
+    ALL_RESERVADA = 269,           /* ALL_RESERVADA  */
+    VALUE_RESERVADA = 270,         /* VALUE_RESERVADA  */
+    MIN_RESERVADA = 271,           /* MIN_RESERVADA  */
+    MAX_RESERVADA = 272,           /* MAX_RESERVADA  */
+    EXACTLY_RESERVADA = 273,       /* EXACTLY_RESERVADA  */
+    THAT_RESERVADA = 274,          /* THAT_RESERVADA  */
+    NOT_RESERVADA = 275,           /* NOT_RESERVADA  */
+    AND_RESERVADA = 276,           /* AND_RESERVADA  */
+    INDIVIDUALS_RESERVADA = 277,   /* INDIVIDUALS_RESERVADA  */
+    EQUIVALENT_RESERVADA = 278,    /* EQUIVALENT_RESERVADA  */
+    SUBCLASSOF_RESERVADA = 279,    /* SUBCLASSOF_RESERVADA  */
+    DISJOINTCLASSES_RESERVADA = 280, /* DISJOINTCLASSES_RESERVADA  */
+    ABREPAR = 281,                 /* ABREPAR  */
+    FECHAPAR = 282,                /* FECHAPAR  */
+    ABRECHAVE = 283,               /* ABRECHAVE  */
+    FECHACHAVE = 284,              /* FECHACHAVE  */
+    ABRECOLCHETE = 285,            /* ABRECOLCHETE  */
+    FECHACOLCHETE = 286,           /* FECHACOLCHETE  */
+    VIRGULA = 287,                 /* VIRGULA  */
+    RELOP = 288,                   /* RELOP  */
+    VAR = 289,                     /* VAR  */
+    UMINUS = 290                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -93,12 +104,19 @@ union YYSTYPE
 	char *individuo;
 	char *only_reservada;
 	char *or_reservada;
-	char *reservada;
+	char *some_reservada;
+	char *all_reservada;
+	char *value_reservada;
+	char *min_reservada;
+	char *max_reservada;
+	char *exactly_reservada;
+	char *that_reservada;
+	char *not_reservada;
+	char *and_reservada;
 	char *equivalentTo;
 	char *subclassof;
 	char *disjointclasses;
 	char *classe_reservada;
-	char *especial;
 	char *propriedade;
 	char *propriedade_isof;
 	char *tipoDado;
@@ -107,8 +125,12 @@ union YYSTYPE
 	char *fechaPar;
 	char *abreChave;
 	char *fechaChave;
+	char *abreColchete;
+	char *fechaColchete;
+	char *virgula;
+	char *relop;
 
-#line 112 "sintatico.tab.h"
+#line 134 "sintatico.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

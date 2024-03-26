@@ -12,8 +12,7 @@ var     [a-z]
 individuo [A-Z][a-zA-Z0-9_]*[0-9]+
 eol  [ \t\n]
 brancos [eol]+
-/*Class: Spiciness EquivalentTo: {Hot , Medium , Mild}/
-/*Classe_reservada classe especial */
+
 classe_reservada (Class:)
 equivalentTo (EquivalentTo:)
 individuals (Individuals:)

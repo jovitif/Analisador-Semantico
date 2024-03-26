@@ -86,35 +86,40 @@ double variables[26];
 instrucao: classe_primitiva { cout << "uma classe primitiva\n";}
 			| classe_coberta { cout << "uma classe coberta\n";}
 			| classe_enumerada { cout << "uma classe enumerada\n";}
-			| classe_definida {cout << "uma classe definida\n";};
+//			| classe_definida {cout << "uma classe definida\n";};
 
 
 classe_primitiva: classe subclassof | classe subclassof disjointclasses | classe subclassof individuos | classe subclassof disjointclasses individuos;
 
 classe_coberta: classe coberta;
 
-classe_enumerada: classe enumerada;
-
-classe_definida: classe equivalentto individuos | classe equivalentto;
-
-equivalentto: EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA CLASSE ESPECIAL
-			| EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA TIPODADO ESPECIAL ESPECIAL NUM ESPECIAL ESPECIAL;
-
-enumerada: EQUIVALENT_RESERVADA ABRECHAVE enumerada_lista FECHACHAVE;
-
-enumerada_lista: CLASSE VIRGULA enumerada_lista | CLASSE;
-
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
 coberta_lista: CLASSE OR_RESERVADA coberta_lista | CLASSE;
+
+classe_enumerada: classe enumerada;
+
+//classe_definida: classe equivalentto individuos | classe equivalentto;
+
+/*
+
+equivalentto: EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA CLASSE ESPECIAL
+			| EQUIVALENT_RESERVADA CLASSE RESERVADA ESPECIAL PROPRIEDADE_HAS RESERVADA TIPODADO ESPECIAL ESPECIAL NUM ESPECIAL ESPECIAL;
+*/
+enumerada: EQUIVALENT_RESERVADA ABRECHAVE enumerada_lista FECHACHAVE;
+
+enumerada_lista: CLASSE VIRGULA enumerada_lista | CLASSE;
 
 classe: CLASSE_RESERVADA CLASSE;
 
 subclassof: SUBCLASSOF_RESERVADA subclassof_lista;
 
-subclassof_lista: propriedade RESERVADA CLASSE ESPECIAL subclassof_lista | propriedade RESERVADA TIPODADO ESPECIAL subclassof_lista |  propriedade RESERVADA CLASSE 
-			|  propriedade RESERVADA TIPODADO |CLASSE ESPECIAL subclassof_lista| propriedade ONLY_RESERVADA CLASSE {cout << "axioma de fechamento ";} | propriedade ONLY_RESERVADA CLASSE ESPECIAL subclassof_lista {cout << "axioma de fechamento";}
-			| propriedade ABREPAR PROPRIEDADE_HAS RESERVADA ABREPAR PROPRIEDADE_HAS RESERVADA CLASSE FECHAPAR FECHAPAR {cout << "aninhada";};
+subclassof_lista: propriedade reservada CLASSE VIRGULA subclassof_lista | propriedade reservada TIPODADO VIRGULA subclassof_lista |  propriedade reservada CLASSE 
+			|  propriedade reservada TIPODADO |CLASSE VIRGULA subclassof_lista| propriedade ONLY_RESERVADA CLASSE {cout << "axioma de fechamento ";} 
+			| propriedade ONLY_RESERVADA CLASSE VIRGULA subclassof_lista {cout << "axioma de fechamento";}
+			| propriedade ABREPAR PROPRIEDADE_HAS reservada ABREPAR PROPRIEDADE_HAS reservada CLASSE FECHAPAR FECHAPAR {cout << "aninhada";};
+
+reservada: SOME_RESERVADA | ONLY_RESERVADA | OR_RESERVADA
 
 disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
 
