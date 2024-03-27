@@ -87,8 +87,10 @@ void yyerror(const char *);
 /* cada letra do alfabeto é uma variável */
 double variables[26];
 
+int qntClasses = 0;
 
-#line 92 "sintatico.tab.c"
+
+#line 94 "sintatico.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -562,12 +564,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    62,    62,    62,    63,    63,    64,    64,    65,    65,
-      68,    70,    70,    72,    74,    74,    76,    78,    79,    79,
-      81,    84,    85,    87,    88,    89,    90,    91,    92,    93,
-      94,    95,    96,    97,    98,    99,   101,   102,   102,   105,
-     105,   105,   107,   107,   109,   109,   111,   111,   113,   113,
-     115,   115,   115,   117,   117,   117,   119,   119
+       0,    35,    35,    35,    36,    36,    37,    37,    38,    38,
+      41,    43,    43,    45,    47,    47,    49,    51,    52,    52,
+      54,    57,    58,    60,    61,    62,    63,    64,    65,    66,
+      67,    68,    69,    70,    71,    72,    74,    75,    75,    78,
+      78,    78,    80,    80,    82,    82,    84,    84,    86,    86,
+      88,    88,    88,    90,    90,    90,    92,    92
 };
 #endif
 
@@ -1195,49 +1197,49 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* classe: classe_primitiva classe  */
-#line 62 "sintatico.y"
-                                                    { cout << "uma classe primitiva\n";}
-#line 1201 "sintatico.tab.c"
+#line 35 "sintatico.y"
+                                                    { cout << "uma classe primitiva\n"; qntClasses++;}
+#line 1203 "sintatico.tab.c"
     break;
 
   case 5: /* classe: classe_coberta classe  */
-#line 63 "sintatico.y"
-                                                                { cout << "uma classe coberta\n";}
-#line 1207 "sintatico.tab.c"
+#line 36 "sintatico.y"
+                                                                { cout << "uma classe coberta\n"; qntClasses++;}
+#line 1209 "sintatico.tab.c"
     break;
 
   case 7: /* classe: classe_enumerada classe  */
-#line 64 "sintatico.y"
-                                                                    { cout << "uma classe enumerada\n";}
-#line 1213 "sintatico.tab.c"
+#line 37 "sintatico.y"
+                                                                    { cout << "uma classe enumerada\n"; qntClasses++;}
+#line 1215 "sintatico.tab.c"
     break;
 
   case 9: /* classe: classe_definida classe  */
-#line 65 "sintatico.y"
-                                                                  {cout << "uma classe definida\n";}
-#line 1219 "sintatico.tab.c"
+#line 38 "sintatico.y"
+                                                                  {cout << "uma classe definida\n"; qntClasses++;}
+#line 1221 "sintatico.tab.c"
     break;
 
   case 31: /* definicao: propriedade ONLY_RESERVADA CLASSE virgula  */
-#line 95 "sintatico.y"
-                                                                    {cout << "axioma de fechamento";}
-#line 1225 "sintatico.tab.c"
+#line 68 "sintatico.y"
+                                                                    {cout << "axioma de fechamento"; qntClasses++;}
+#line 1227 "sintatico.tab.c"
     break;
 
   case 32: /* definicao: propriedade ONLY_RESERVADA parenteses virgula  */
-#line 96 "sintatico.y"
-                                                                        {cout << "axioma de fechamento";}
-#line 1231 "sintatico.tab.c"
+#line 69 "sintatico.y"
+                                                                        {cout << "axioma de fechamento"; qntClasses++;}
+#line 1233 "sintatico.tab.c"
     break;
 
   case 38: /* conteudo: propriedade reservada parenteses  */
-#line 102 "sintatico.y"
-                                                      {cout << "aninhada ";}
-#line 1237 "sintatico.tab.c"
+#line 75 "sintatico.y"
+                                                      {cout << "aninhada ";qntClasses++;}
+#line 1239 "sintatico.tab.c"
     break;
 
 
-#line 1241 "sintatico.tab.c"
+#line 1243 "sintatico.tab.c"
 
       default: break;
     }
@@ -1430,12 +1432,13 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 122 "sintatico.y"
+#line 95 "sintatico.y"
 
 
 extern FILE * yyin;  
 int main(int argc, char ** argv)
 {
+	cout << "Realizando analise sintatica...\n\n";
     if (argc > 1)
     {
         FILE * file;
@@ -1450,6 +1453,7 @@ int main(int argc, char ** argv)
 	}
 
 	 yyparse();
+	cout << "\nQuantidade de classes: " << qntClasses << "\n"; 
 
 }
 
@@ -1458,5 +1462,7 @@ void yyerror(const char * s)
 	extern int yylineno;    
 
 	extern char * yytext;   
-    std::cout << ANSI_COLOR_YELLOW << "Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    std::cout << ANSI_COLOR_YELLOW << "\nErro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+	//cout << "\nQuantidade de classes: " + qntClasses;
+
 }
