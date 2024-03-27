@@ -5,10 +5,12 @@
 #include <cstdio>
 #include <cstdlib>
 using std::cout;
+using std::endl;
 
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
+extern int yylineno;  
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
@@ -25,6 +27,9 @@ int qntCoberta = 0;
 int qntAxiomaDeFechamento = 0;
 int qntAninhada = 0;
 int qntEspecial = 0;
+bool aninhada = false;
+bool fechamento =false;
+int linhaAtual = 0;
 %}
 
 %union {
@@ -38,11 +43,12 @@ int qntEspecial = 0;
 
 
 %%
-classe:    classe classe_primitiva { cout << "uma classe primitiva\n"; qntClasses++; qntPrimitiva++;}
-			| classe  classe_coberta { cout << "uma classe coberta\n"; qntClasses++; qntCoberta++;}
-			| classe  classe_enumerada  { cout << "uma classe enumerada\n"; qntClasses++; qntEnumerada++;}
-			| classe classe_definida {cout << "uma classe definida\n"; qntClasses++; qntDefinida++;}
-			| classe classe_especial {cout << "uma classe especial\n"; qntClasses++;qntEspecial++;}
+
+classe:  classe classe_primitiva { cout << "uma classe primitiva ";  if(aninhada == true){cout << "com aninhamento "; aninhada =false;} if(fechamento == true){cout << "com axioma de fechamento "; fechamento = false;} cout << "linha " << linhaAtual; cout << endl; linhaAtual = yylineno;  qntClasses++; qntPrimitiva++;}
+			| classe  classe_coberta { cout << "uma classe coberta "; qntClasses++; qntCoberta++;}
+			| classe  classe_enumerada  { cout << "uma classe enumerada "; qntClasses++; qntEnumerada++;}
+			| classe classe_definida {cout << "uma classe definida ";  if(aninhada == true){cout << "com aninhamento "; aninhada = false;} if(fechamento == true){cout << "com axioma de fechamento "; fechamento = false;} cout << "linha " << linhaAtual; cout << endl; linhaAtual = yylineno; qntClasses++; qntDefinida++;}
+			| classe classe_especial {cout << "uma classe especial "; qntClasses++;qntEspecial++;}
 			| ;
 
 
@@ -71,7 +77,7 @@ definicao: CLASSE virgula definicao
 			| propriedade reservada TIPODADO virgula definicao
 			| AND_RESERVADA parenteses virgula definicao
 			| AND_RESERVADA definicao
-			| fechamento {cout << "fechamento "; qntAxiomaDeFechamento++;}
+			| fechamento {qntAxiomaDeFechamento++; fechamento = true;}
 			| parenteses definicao
 			| propriedade quantificador NUM CLASSE virgula definicao
 			| propriedade quantificador NUM TIPODADO virgula definicao
@@ -80,7 +86,7 @@ definicao: CLASSE virgula definicao
 			| ;
 
 parenteses: ABREPAR conteudo FECHAPAR;
-conteudo: definicao |propriedade reservada parenteses {cout << "aninhada "; qntAninhada++;};
+conteudo: definicao |propriedade reservada parenteses { qntAninhada++; aninhada = true;};
 
 
 
@@ -137,7 +143,7 @@ int main(int argc, char ** argv)
 
 void yyerror(const char * s)
 {
-	extern int yylineno;    
+	  
 
 	extern char * yytext;   
     std::cout << ANSI_COLOR_YELLOW << "\nErro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
