@@ -85,8 +85,7 @@ extern int yydebug;
     FECHACOLCHETE = 286,           /* FECHACOLCHETE  */
     VIRGULA = 287,                 /* VIRGULA  */
     RELOP = 288,                   /* RELOP  */
-    VAR = 289,                     /* VAR  */
-    UMINUS = 290                   /* UMINUS  */
+    VAR = 289                      /* VAR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -95,42 +94,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "sintatico.y"
+#line 22 "sintatico.y"
 
 	double num;
 	int ind;
-	char *classe;
-	char *individuals;
-	char *individuo;
-	char *only_reservada;
-	char *or_reservada;
-	char *some_reservada;
-	char *all_reservada;
-	char *value_reservada;
-	char *min_reservada;
-	char *max_reservada;
-	char *exactly_reservada;
-	char *that_reservada;
-	char *not_reservada;
-	char *and_reservada;
-	char *equivalentTo;
-	char *subclassof;
-	char *disjointclasses;
-	char *classe_reservada;
-	char *propriedade;
-	char *propriedade_isof;
-	char *tipoDado;
-	char *propriedade_has;
-	char *abrePar;
-	char *fechaPar;
-	char *abreChave;
-	char *fechaChave;
-	char *abreColchete;
-	char *fechaColchete;
-	char *virgula;
-	char *relop;
 
-#line 134 "sintatico.tab.h"
+#line 103 "sintatico.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

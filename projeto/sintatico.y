@@ -2,11 +2,17 @@
 #include <iostream>
 #include <stdio.h>
 #include <cstring>
+#include <cstdio>
+#include <cstdlib>
 using std::cout;
 
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 /* cada letra do alfabeto é uma variável */
 double variables[26];
@@ -140,5 +146,5 @@ void yyerror(const char * s)
 	extern int yylineno;    
 
 	extern char * yytext;   
-	cout << "Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    std::cout << ANSI_COLOR_YELLOW << "Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
 }
