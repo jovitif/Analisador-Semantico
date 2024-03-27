@@ -1,6 +1,11 @@
 %{ 
+#include <iostream>
+#include <cstdio>
+#include <string>
 #include "sintatico.tab.h"
-extern double variables[26];
+using std::cout;
+using std::cin;
+using std::string;
 %}
 
 %option yylineno
@@ -26,40 +31,39 @@ tipoDado (owl|rdfs|xsd):[A-Za-z0-9_]+
 cardinalidade [0-9]+
 
 %%
+[ \t\n]+ ;
+only  return ONLY_RESERVADA; 
+or  return OR_RESERVADA; 
+some return SOME_RESERVADA;
+all   return ALL_RESERVADA;
+value return VALUE_RESERVADA;
+min  return MIN_RESERVADA;
+max  return MAX_RESERVADA;
+exactly return EXACTLY_RESERVADA;
+that return THAT_RESERVADA;
+not  return NOT_RESERVADA;
+and  return AND_RESERVADA;
+{classe_reservada} return CLASSE_RESERVADA;
+{equivalentTo}  return EQUIVALENT_RESERVADA;
+{individuals} return INDIVIDUALS_RESERVADA;
+{subclassof} return SUBCLASSOF_RESERVADA;
+{disjointclasses}  return DISJOINTCLASSES_RESERVADA;
+{numero}   return NUM; 
+{propriedade_isof}  return PROPRIEDADE_ISOF;
+{propriedade_has}  return PROPRIEDADE_HAS;
+{propriedade} return PROPRIEDADE;
+{tipoDado} return TIPODADO;
+{classe}   return CLASSE; 
+{individuo} return INDIVIDUO; 
+"(" return ABREPAR; 
+")" return FECHAPAR;
+"{" return ABRECHAVE;
+"}" return FECHACHAVE;
+"["  return ABRECOLCHETE;
+"]" return FECHACOLCHETE;
+"," return VIRGULA;
+"<" return RELOP;
+">" return RELOP;
+"=" return RELOP;
 
-only {yylval.only_reservada = strdup(yytext); return ONLY_RESERVADA; }
-or {yylval.or_reservada = strdup(yytext); return OR_RESERVADA; }
-some {yylval.some_reservada = strdup(yytext); return SOME_RESERVADA;}
-all  {yylval.all_reservada = strdup(yytext); return ALL_RESERVADA;}
-value {yylval.value_reservada = strdup(yytext); return VALUE_RESERVADA;}
-min {yylval.min_reservada = strdup(yytext); return MIN_RESERVADA;}
-max {yylval.max_reservada = strdup(yytext); return MAX_RESERVADA;}
-exactly {yylval.exactly_reservada = strdup(yytext); return EXACTLY_RESERVADA;}
-that {yylval.that_reservada = strdup(yytext); return THAT_RESERVADA;}
-not {yylval.not_reservada = strdup(yytext); return NOT_RESERVADA;}
-and {yylval.and_reservada = strdup(yytext); return AND_RESERVADA;}
-{classe_reservada} {yylval.classe_reservada = strdup(yytext); return CLASSE_RESERVADA;}
-{equivalentTo} { yylval.equivalentTo = strdup(yytext); return EQUIVALENT_RESERVADA;} 
-{individuals} { yylval.individuals = strdup(yytext); return INDIVIDUALS_RESERVADA;}
-{subclassof} {yylval.subclassof = strdup(yytext); return SUBCLASSOF_RESERVADA;}
-{disjointclasses} {yylval.disjointclasses = strdup(yytext); return DISJOINTCLASSES_RESERVADA;}
-{numero}    { yylval.num = atof(yytext); return NUM; }
-{propriedade_isof} {yylval.propriedade_isof = strdup(yytext); return PROPRIEDADE_ISOF;}
-{propriedade_has} {yylval.propriedade_has = strdup(yytext); return PROPRIEDADE_HAS;}
-{propriedade} {yylval.propriedade = strdup(yytext); return PROPRIEDADE;}
-{tipoDado} {yylval.tipoDado = strdup(yytext); return TIPODADO;}
-{classe}   { yylval.classe = strdup(yytext); return CLASSE; }
-{individuo} { yylval.individuo = strdup(yytext); return INDIVIDUO; }
-"(" {yylval.abrePar = strdup(yytext); return ABREPAR; }
-")" {yylval.fechaPar = strdup(yytext); return FECHAPAR;}
-"{" {yylval.abreChave = strdup(yytext); return ABRECHAVE;}
-"}" {yylval.fechaChave = strdup(yytext); return FECHACHAVE;}
-"[" {yylval.abreColchete = strdup(yytext); return ABRECOLCHETE;}
-"]" {yylval.fechaColchete = strdup(yytext); return FECHACOLCHETE;}
-"," {yylval.virgula = strdup(yytext); return VIRGULA;}
-"<" {yylval.relop = strdup(yytext); return RELOP;}
-">" {yylval.relop = strdup(yytext); return RELOP;}
-"=" {yylval.relop = strdup(yytext); return RELOP;}
-">=" {yylval.relop = strdup(yytext); return RELOP;}
-"<=" {yylval.relop = strdup(yytext); return RELOP;}
-"<>" {yylval.relop = strdup(yytext); return RELOP;}
+%%
