@@ -65,5 +65,7 @@ and  return AND_RESERVADA;
 "<" return RELOP;
 ">" return RELOP;
 "=" return RELOP;
-
+">=" return RELOP;
+"<=" return RELOP;
+"<>" return RELOP;
 %%

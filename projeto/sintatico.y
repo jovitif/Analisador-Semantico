@@ -18,7 +18,13 @@ void yyerror(const char *);
 double variables[26];
 
 int qntClasses = 0;
-
+int qntDefinida = 0;
+int qntPrimitiva = 0;
+int qntEnumerada = 0;
+int qntCoberta = 0;
+int qntAxiomaDeFechamento = 0;
+int qntAninhada = 0;
+int qntEspecial = 0;
 %}
 
 %union {
@@ -32,10 +38,12 @@ int qntClasses = 0;
 
 
 %%
-classe:   classe_primitiva| classe_primitiva classe { cout << "uma classe primitiva\n"; qntClasses++;}
-			| classe_coberta| classe_coberta classe { cout << "uma classe coberta\n"; qntClasses++;}
-			| classe_enumerada| classe_enumerada classe { cout << "uma classe enumerada\n"; qntClasses++;}
-			| classe_definida| classe_definida classe {cout << "uma classe definida\n"; qntClasses++;};
+classe:    classe classe_primitiva { cout << "uma classe primitiva\n"; qntClasses++; qntPrimitiva++;}
+			| classe  classe_coberta { cout << "uma classe coberta\n"; qntClasses++; qntCoberta++;}
+			| classe  classe_enumerada  { cout << "uma classe enumerada\n"; qntClasses++; qntEnumerada++;}
+			| classe classe_definida {cout << "uma classe definida\n"; qntClasses++; qntDefinida++;}
+			| classe classe_especial {cout << "uma classe especial\n"; qntClasses++;qntEspecial++;}
+			| ;
 
 
 classe_primitiva: CLASSE_RESERVADA CLASSE subclassof disjointclasses individuos;
@@ -44,7 +52,7 @@ classe_coberta: CLASSE_RESERVADA CLASSE coberta|CLASSE_RESERVADA CLASSE coberta 
 
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
-coberta_lista: CLASSE OR_RESERVADA coberta_lista|CLASSE;
+coberta_lista: CLASSE OR_RESERVADA coberta_lista |CLASSE;
 
 classe_enumerada: CLASSE_RESERVADA CLASSE enumerada;
 
@@ -53,39 +61,44 @@ enumerada_lista: CLASSE VIRGULA enumerada_lista | CLASSE;
 
 classe_definida: CLASSE_RESERVADA CLASSE equivalentto disjointclasses individuos;
 
+classe_especial: CLASSE_RESERVADA CLASSE disjointclasses| CLASSE_RESERVADA CLASSE equivalentto subclassof disjointclasses individuos;
 
-subclassof: SUBCLASSOF_RESERVADA definicao
-equivalentto: EQUIVALENT_RESERVADA definicao
+subclassof: SUBCLASSOF_RESERVADA definicao ;
+equivalentto: EQUIVALENT_RESERVADA definicao;
 
-definicao: CLASSE 
-			| propriedade reservada CLASSE virgula
-			| propriedade reservada TIPODADO virgula
-			| CLASSE AND_RESERVADA parenteses virgula
-			| CLASSE AND_RESERVADA parenteses definicao virgula
-			| AND_RESERVADA parenteses virgula
-			| AND_RESERVADA parenteses definicao virgula
-			| CLASSE VIRGULA definicao virgula
-			| propriedade ONLY_RESERVADA CLASSE virgula {cout << "axioma de fechamento"; qntClasses++;}
-			| propriedade ONLY_RESERVADA parenteses virgula {cout << "axioma de fechamento"; qntClasses++;}
-			| propriedade quantificador NUM CLASSE virgula
-			| propriedade quantificador NUM TIPODADO virgula
-			| propriedade reservada TIPODADO ABRECOLCHETE RELOP NUM FECHACOLCHETE virgula
+definicao: CLASSE virgula definicao
+			| propriedade reservada CLASSE virgula definicao 
+			| propriedade reservada TIPODADO virgula definicao
+			| AND_RESERVADA parenteses virgula definicao
+			| AND_RESERVADA definicao
+			| fechamento {cout << "fechamento "; qntAxiomaDeFechamento++;}
+			| parenteses definicao
+			| propriedade quantificador NUM CLASSE virgula definicao
+			| propriedade quantificador NUM TIPODADO virgula definicao
+			| propriedade reservada TIPODADO ABRECOLCHETE RELOP NUM FECHACOLCHETE virgula definicao
+			| CLASSE OR_RESERVADA definicao
+			| ;
 
 parenteses: ABREPAR conteudo FECHAPAR;
-conteudo: definicao |propriedade reservada parenteses {cout << "aninhada ";qntClasses++;};	
+conteudo: definicao |propriedade reservada parenteses {cout << "aninhada "; qntAninhada++;};
 
 
-reservada: SOME_RESERVADA | VALUE_RESERVADA| ALL_RESERVADA
 
-disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista| ;
+fechamento:  propriedade ONLY_RESERVADA CLASSE virgula definicao 
+			| propriedade ONLY_RESERVADA parenteses virgula definicao 
 
-disjointclasses_lista: disjointclasses_lista VIRGULA CLASSE | CLASSE;
+
+reservada: SOME_RESERVADA | VALUE_RESERVADA| ALL_RESERVADA;
+
+disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista | ;
+
+disjointclasses_lista:   CLASSE VIRGULA disjointclasses_lista| CLASSE;
 
 individuos: INDIVIDUALS_RESERVADA individuos_lista | ; 
 
 individuos_lista: individuos_lista VIRGULA INDIVIDUO | INDIVIDUO;
 
-propriedade: PROPRIEDADE | PROPRIEDADE_ISOF | PROPRIEDADE_HAS;
+propriedade: PROPRIEDADE | PROPRIEDADE_ISOF | PROPRIEDADE_HAS| PROPRIEDADE PROPRIEDADE| ;
 
 quantificador: MIN_RESERVADA| MAX_RESERVADA|EXACTLY_RESERVADA;
 
@@ -113,7 +126,13 @@ int main(int argc, char ** argv)
 
 	 yyparse();
 	cout << "\nQuantidade de classes: " << qntClasses << "\n"; 
-
+	cout << "\nQuantidade de primitivas: " << qntPrimitiva << "\n";
+	cout << "\nQuantidade de definidas: " << qntDefinida << "\n";
+	cout << "\nQuantidade de enumeradas: " << qntEnumerada << "\n";
+	cout << "\nQuantidade de cobertas: " << qntCoberta << "\n";
+	cout << "\nQuantidade de axiomas de fechamento: " << qntAxiomaDeFechamento << "\n"; 
+	cout << "\nQuantidade de aninhadas: " << qntAninhada << "\n"; 
+	cout << "\nQuantidade de especiais: " << qntEspecial << "\n";     
 }
 
 void yyerror(const char * s)
