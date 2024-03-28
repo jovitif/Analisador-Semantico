@@ -33,6 +33,9 @@ Por “consistência”, entende-se que a declaração das classes seguem uma or
      <code>cd projeto/</code>
   </li>
   <li>
+    <p>Importante: é necessário ter o flex e o bison configurado no Visual Studio Code para poder funcionar a compilação do projeto</p>
+  </li>
+  <li>
     <p>Agora para compilar o analisador usando o makeFile devemos digitar o comando make</p>
     <code>make</code>
     <p>Ele irá gerar os arquivos lex.yy.c, sintatico.tab.c, sintatico.tab.h e a.out</p>
