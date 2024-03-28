@@ -48,5 +48,66 @@ Por “consistência”, entende-se que a declaração das classes seguem uma or
   </li>
   <li>
     <p>O programa irá gerar a análise sintática e mostrar se teve algum erro ou não encontrado no processo de análise</p>
+    <p>Exemplo de saída:</p>
+      Realizando analise sintatica...
+
+linha 0: uma classe primitiva 
+linha 8: uma classe primitiva 
+linha 15: uma classe primitiva 
+linha 24: uma classe primitiva 
+linha 31: uma classe primitiva com axioma de fechamento 
+linha 40: uma classe definida com axioma de fechamento 
+linha 54: uma classe primitiva 
+linha 63: uma classe primitiva com axioma de fechamento 
+linha 74: uma classe primitiva com axioma de fechamento 
+linha 84: uma classe primitiva 
+linha 93: uma classe primitiva 
+linha 100: uma classe primitiva 
+linha 108: uma classe primitiva com axioma de fechamento 
+linha 117: uma classe primitiva com axioma de fechamento 
+linha 126: uma classe primitiva 
+linha 137: uma classe primitiva 
+linha 156: uma classe definida 
+linha 170: uma classe primitiva com axioma de fechamento 
+linha 179: uma classe primitiva 
+linha 189: uma classe primitiva 
+linha 211: uma classe primitiva 
+linha 220: uma classe primitiva 
+linha 229: uma classe definida com axioma de fechamento 
+linha 241: uma classe definida com axioma de fechamento 
+linha 256: uma classe especial 
+linha 265: uma classe primitiva com axioma de fechamento 
+linha 274: uma classe definida com axioma de fechamento 
+linha 286: uma classe primitiva 
+linha 295: uma classe primitiva 
+linha 303: uma classe primitiva 
+linha 310: uma classe primitiva 
+linha 323: uma classe primitiva 
+linha 333: uma classe primitiva 
+linha 344: uma classe primitiva 
+linha 355: uma classe definida com axioma de fechamento 
+linha 367: uma classe primitiva com axioma de fechamento 
+linha 376: uma classe primitiva com axioma de fechamento 
+linha 385: uma classe primitiva com axioma de fechamento 
+linha 396: uma classe primitiva com axioma de fechamento 
+linha 407: uma classe primitiva 
+linha 416: uma classe primitiva 
+
+Quantidade de classes: 41
+
+Quantidade de classes primitivas: 34
+
+Quantidade de classes definidas: 6
+
+Quantidade de classes enumeradas: 0
+
+Quantidade de classes cobertas: 0
+
+Quantidade de axiomas de fechamento: 29
+
+Quantidade de aninhadas: 0
+
+Quantidade de especiais: 1
+
   </li>
 </ol>
