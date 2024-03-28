@@ -84,7 +84,7 @@ extern int yydebug;
     ABRECOLCHETE = 285,            /* ABRECOLCHETE  */
     FECHACOLCHETE = 286,           /* FECHACOLCHETE  */
     VIRGULA = 287,                 /* VIRGULA  */
-    RELOP = 288,                   /* RELOP  */
+    op = 288,                      /* op  */
     VAR = 289                      /* VAR  */
   };
   typedef enum yytokentype yytoken_kind_t;
@@ -92,17 +92,7 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-union YYSTYPE
-{
-#line 35 "sintatico.y"
-
-	double num;
-	int ind;
-
-#line 103 "sintatico.tab.h"
-
-};
-typedef union YYSTYPE YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

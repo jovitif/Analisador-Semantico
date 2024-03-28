@@ -12,23 +12,12 @@ using std::string;
 %option noyywrap
 
 numero  [0-9]+("."[0-9]+)?
-var     [a-z]
-
 individuo [A-Z][a-zA-Z0-9_]*[0-9]+
-eol  [ \t\n]
-brancos [eol]+
-
-classe_reservada (Class:)
-equivalentTo (EquivalentTo:)
-individuals (Individuals:)
-subclassof (SubClassOf:)
-disjointclasses (DisjointClasses:)
 propriedade  [a-z][A-Za-z0-9]*
 propriedade_has (has[A-Za-z]+)
-classe [A-Z][a-zA-Z_]+
 propriedade_isof {propriedade}("is"[A-Z][a-zA-Z_]+"of")
+classe [A-Z][a-zA-Z_]+
 tipoDado (owl|rdfs|xsd):[A-Za-z0-9_]+
-cardinalidade [0-9]+
 
 %%
 [ \t\n]+ ;
@@ -43,18 +32,11 @@ exactly return EXACTLY_RESERVADA;
 that return THAT_RESERVADA;
 not  return NOT_RESERVADA;
 and  return AND_RESERVADA;
-{classe_reservada} return CLASSE_RESERVADA;
-{equivalentTo}  return EQUIVALENT_RESERVADA;
-{individuals} return INDIVIDUALS_RESERVADA;
-{subclassof} return SUBCLASSOF_RESERVADA;
-{disjointclasses}  return DISJOINTCLASSES_RESERVADA;
-{numero}   return NUM; 
-{propriedade_isof}  return PROPRIEDADE_ISOF;
-{propriedade_has}  return PROPRIEDADE_HAS;
-{propriedade} return PROPRIEDADE;
-{tipoDado} return TIPODADO;
-{classe}   return CLASSE; 
-{individuo} return INDIVIDUO; 
+Class: return CLASSE_RESERVADA;
+EquivalentTo:  return EQUIVALENT_RESERVADA;
+Individuals: return INDIVIDUALS_RESERVADA;
+SubClassOf: return SUBCLASSOF_RESERVADA;
+DisjointClasses: return DISJOINTCLASSES_RESERVADA;
 "(" return ABREPAR; 
 ")" return FECHAPAR;
 "{" return ABRECHAVE;
@@ -62,10 +44,18 @@ and  return AND_RESERVADA;
 "["  return ABRECOLCHETE;
 "]" return FECHACOLCHETE;
 "," return VIRGULA;
-"<" return RELOP;
-">" return RELOP;
-"=" return RELOP;
-">=" return RELOP;
-"<=" return RELOP;
-"<>" return RELOP;
+"<" return op;
+">" return op;
+"=" return op;
+">=" return op;
+"<=" return op;
+"<>" return op;
+{numero}   return NUM; 
+{propriedade_isof}  return PROPRIEDADE_ISOF;
+{propriedade_has}  return PROPRIEDADE_HAS;
+{propriedade} return PROPRIEDADE;
+{tipoDado} return TIPODADO;
+{classe}   return CLASSE; 
+{individuo} return INDIVIDUO; 
+
 %%

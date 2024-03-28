@@ -384,23 +384,23 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[159] =
     {   0,
-        0,    0,   39,   38,    1,   25,   26,   31,   18,   32,
-       34,   33,   38,   38,   38,   38,   38,   38,   29,   30,
-       21,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,   21,   27,   28,    1,    0,   18,   36,   37,   35,
-       24,   23,   23,   23,   23,   23,   23,   21,   21,   21,
-       21,   21,   21,   21,   21,   21,   21,    3,   21,   21,
-       21,   21,   21,   21,   18,    0,   23,   23,   23,   23,
-       23,   21,    5,   12,   21,   21,    8,    7,   11,   21,
-       21,   21,   21,   21,   21,   23,   23,   23,   23,   23,
-       21,   21,   20,   20,    2,    0,    4,   10,   21,   23,
+        0,    0,   39,   38,    1,   18,   19,   24,   31,   25,
+       27,   26,   38,   38,   38,   38,   38,   38,   22,   23,
+       34,   34,   34,   34,   34,   34,   34,   34,   34,   34,
+       34,   34,   20,   21,    1,    0,   31,   29,   30,   28,
+       37,   36,   36,   36,   36,   36,   36,   34,   34,   34,
+       34,   34,   34,   34,   34,   34,   34,    3,   34,   34,
+       34,   34,   34,   34,   31,    0,   36,   36,   36,   36,
+       36,   34,    5,   12,   34,   34,    8,    7,   11,   34,
+       34,   34,   34,   34,   34,   36,   36,   36,   36,   36,
+       34,   34,   33,   33,    2,    0,    4,   10,   34,   36,
 
-       23,   23,   23,   23,   21,    0,   21,   21,   20,   22,
-        6,   13,   23,   23,   23,   23,   21,    0,   21,   21,
-       20,   23,   23,   23,   23,   19,   19,    9,   20,   20,
-       23,   23,   23,   23,   20,   20,   23,   23,   23,   23,
-       19,   23,   23,   23,   23,   23,   23,   23,   16,   23,
-       23,   15,   23,   14,   23,   23,   17,    0
+       36,   36,   36,   36,   34,    0,   34,   34,   33,   35,
+        6,   13,   36,   36,   36,   36,   34,    0,   34,   34,
+       33,   36,   36,   36,   36,   32,   32,    9,   33,   33,
+       36,   36,   36,   36,   33,   33,   36,   36,   36,   36,
+       32,   36,   36,   36,   36,   36,   36,   36,   16,   36,
+       36,   15,   36,   14,   36,   36,   17,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -833,7 +833,7 @@ YY_DECL
 		}
 
 	{
-#line 33 "analisador.l"
+#line 22 "analisador.l"
 
 #line 839 "lex.yy.c"
 
@@ -905,192 +905,192 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 34 "analisador.l"
+#line 23 "analisador.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 35 "analisador.l"
+#line 24 "analisador.l"
 return ONLY_RESERVADA; 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 36 "analisador.l"
+#line 25 "analisador.l"
 return OR_RESERVADA; 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 37 "analisador.l"
+#line 26 "analisador.l"
 return SOME_RESERVADA;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 38 "analisador.l"
+#line 27 "analisador.l"
 return ALL_RESERVADA;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 39 "analisador.l"
+#line 28 "analisador.l"
 return VALUE_RESERVADA;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 40 "analisador.l"
+#line 29 "analisador.l"
 return MIN_RESERVADA;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 41 "analisador.l"
+#line 30 "analisador.l"
 return MAX_RESERVADA;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 42 "analisador.l"
+#line 31 "analisador.l"
 return EXACTLY_RESERVADA;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 43 "analisador.l"
+#line 32 "analisador.l"
 return THAT_RESERVADA;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 44 "analisador.l"
+#line 33 "analisador.l"
 return NOT_RESERVADA;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 45 "analisador.l"
+#line 34 "analisador.l"
 return AND_RESERVADA;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 46 "analisador.l"
+#line 35 "analisador.l"
 return CLASSE_RESERVADA;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 47 "analisador.l"
+#line 36 "analisador.l"
 return EQUIVALENT_RESERVADA;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 48 "analisador.l"
+#line 37 "analisador.l"
 return INDIVIDUALS_RESERVADA;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 49 "analisador.l"
+#line 38 "analisador.l"
 return SUBCLASSOF_RESERVADA;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 50 "analisador.l"
+#line 39 "analisador.l"
 return DISJOINTCLASSES_RESERVADA;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 51 "analisador.l"
-return NUM; 
+#line 40 "analisador.l"
+return ABREPAR; 
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 52 "analisador.l"
-return PROPRIEDADE_ISOF;
+#line 41 "analisador.l"
+return FECHAPAR;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 53 "analisador.l"
-return PROPRIEDADE_HAS;
+#line 42 "analisador.l"
+return ABRECHAVE;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 54 "analisador.l"
-return PROPRIEDADE;
+#line 43 "analisador.l"
+return FECHACHAVE;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 55 "analisador.l"
-return TIPODADO;
+#line 44 "analisador.l"
+return ABRECOLCHETE;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 56 "analisador.l"
-return CLASSE; 
+#line 45 "analisador.l"
+return FECHACOLCHETE;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 57 "analisador.l"
-return INDIVIDUO; 
+#line 46 "analisador.l"
+return VIRGULA;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 58 "analisador.l"
-return ABREPAR; 
+#line 47 "analisador.l"
+return op;
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 59 "analisador.l"
-return FECHAPAR;
+#line 48 "analisador.l"
+return op;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 60 "analisador.l"
-return ABRECHAVE;
+#line 49 "analisador.l"
+return op;
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 61 "analisador.l"
-return FECHACHAVE;
+#line 50 "analisador.l"
+return op;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 62 "analisador.l"
-return ABRECOLCHETE;
+#line 51 "analisador.l"
+return op;
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 63 "analisador.l"
-return FECHACOLCHETE;
+#line 52 "analisador.l"
+return op;
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 64 "analisador.l"
-return VIRGULA;
+#line 53 "analisador.l"
+return NUM; 
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 65 "analisador.l"
-return RELOP;
+#line 54 "analisador.l"
+return PROPRIEDADE_ISOF;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 66 "analisador.l"
-return RELOP;
+#line 55 "analisador.l"
+return PROPRIEDADE_HAS;
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 67 "analisador.l"
-return RELOP;
+#line 56 "analisador.l"
+return PROPRIEDADE;
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 68 "analisador.l"
-return RELOP;
+#line 57 "analisador.l"
+return TIPODADO;
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 69 "analisador.l"
-return RELOP;
+#line 58 "analisador.l"
+return CLASSE; 
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 70 "analisador.l"
-return RELOP;
+#line 59 "analisador.l"
+return INDIVIDUO; 
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 71 "analisador.l"
+#line 61 "analisador.l"
 ECHO;
 	YY_BREAK
 #line 1097 "lex.yy.c"
@@ -2110,5 +2110,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 71 "analisador.l"
+#line 61 "analisador.l"
 
