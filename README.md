@@ -35,7 +35,7 @@ Por “consistência”, entende-se que a declaração das classes seguem uma or
   <li>
     <p>Agora para compilar o analisador usando o makeFile devemos digitar o comando make</p>
     <code>make</code>
-    <p>Ele ira os arquivos lex.yy.c, sintatico.tab.c, sintatico.tab.h e a.out</p>
+    <p>Ele irá gerar os arquivos lex.yy.c, sintatico.tab.c, sintatico.tab.h e a.out</p>
 </li>
   <li>
     <p>Para executar é preciso somente digitar o comando ./a.out e depois digitar o nome do arquivo .txt a ser analisado </p>
