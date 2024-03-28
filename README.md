@@ -44,6 +44,7 @@ Por “consistência”, entende-se que a declaração das classes seguem uma or
     <p>Para executar é preciso somente digitar o comando ./a.out e depois digitar o nome do arquivo .txt a ser analisado </p>
     <p>Exemplo:</p>
     <code>./a.out classe_aninhada.txt</code>
+    <p>Dentro da pasta projeto tem 8 arquivos .txt para testes. Desses arquivos 6 são de classes separadas e 2 são de junção de várias classes</p>
   </li>
   <li>
     <p>O programa irá gerar a análise sintática e mostrar se teve algum erro ou não encontrado no processo de análise</p>
