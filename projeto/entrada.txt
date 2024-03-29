@@ -31,7 +31,7 @@ Class: Employee
 
 Class: Pizza
 
-    SubClassf:
+    SubClassOf:
         hasBase some PizzaBase,
         hasCaloricContent some xsd:integer
     
@@ -45,7 +45,7 @@ Class: Pizza
 Class: CheesyPizza
 
     EquivalentTo: 
-        
+        Person
          and (hasTopping some CheeseTopping)
     
     Individuals: 
@@ -168,4 +168,3 @@ Class: Spiciness
 
     EquivalentTo:
         {Hot , Medium , Mild}
-

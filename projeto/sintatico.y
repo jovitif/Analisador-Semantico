@@ -30,9 +30,11 @@ int qntEspecial = 0;
 bool aninhada = false;
 bool fechamento =false;
 int linhaAtual = 0;
+int erros = 0;
 
 void saida(string saida){
-	cout << "linha " << linhaAtual << ": ";  linhaAtual = yylineno;
+	
+	cout << "|linha " << linhaAtual << ": ";  linhaAtual = yylineno;
 	cout << saida;
  	if(aninhada == true){
 		cout << "com aninhamento "; 
@@ -43,6 +45,7 @@ void saida(string saida){
 		cout << "com axioma de fechamento ";
 		fechamento = false;
 	}
+	cout << "\n|-----------------------------------------------------------------|";
 	cout << endl;
 }
 %}
@@ -154,7 +157,7 @@ virgula: VIRGULA
 extern FILE * yyin;  
 int main(int argc, char ** argv)
 {
-	cout << "Realizando analise sintatica...\n\n";
+	
     if (argc > 1)
     {
         FILE * file;
@@ -167,21 +170,35 @@ int main(int argc, char ** argv)
         yyin = file;
 
 	}
-
+	cout << "\nRealizando analise sintatica...\n\n";
 	 yyparse();
-	cout << "\nQuantidade de classes: " << qntClasses << "\n"; 
-	cout << "\nQuantidade de classes primitivas: " << qntPrimitiva << "\n";
-	cout << "\nQuantidade de classes definidas: " << qntDefinida << "\n";
-	cout << "\nQuantidade de classes enumeradas: " << qntEnumerada << "\n";
-	cout << "\nQuantidade de classes cobertas: " << qntCoberta << "\n";
-	cout << "\nQuantidade de axiomas de fechamento: " << qntAxiomaDeFechamento << "\n"; 
-	cout << "\nQuantidade de aninhadas: " << qntAninhada << "\n"; 
-	cout << "\nQuantidade de especiais: " << qntEspecial << "\n";     
+	cout << "\nCONTAGEM DE CLASSES E ERROS\n";
+	cout << "\n|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de classes| " << qntClasses << "\n"; 
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de classes primitivas| " << qntPrimitiva << "\n";
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de classes definidas| " << qntDefinida << "\n";
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de classes enumeradas| " << qntEnumerada << "\n";
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de classes cobertas| " << qntCoberta << "\n";
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de axiomas de fechamento| " << qntAxiomaDeFechamento << "\n";
+	cout << "|-----------------------------------------------------------------|"; 
+	cout << "\n|Quantidade de aninhadas| " << qntAninhada << "\n"; 
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de especiais| " << qntEspecial << "\n";   
+	cout << "|-----------------------------------------------------------------|";
+	cout << "\n|Quantidade de erros|" << erros << "\n";  
+	cout << "|-----------------------------------------------------------------|\n";
 }
 
 void yyerror(const char * s)
 {
+	erros++;
     extern char * yytext;   
-    cout << ANSI_COLOR_YELLOW << "\nErro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")";
+	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 
 }
