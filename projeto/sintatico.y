@@ -61,7 +61,10 @@ classe:  classe classe_primitiva { saida("uma classe primitiva ");   qntClasses+
 			| classe  classe_enumerada  { saida("uma classe enumerada "); qntClasses++; qntEnumerada++;}
 			| classe classe_definida {saida("uma classe definida "); qntClasses++; qntDefinida++;}
 			| classe classe_especial {saida("uma classe especial "); qntClasses++;qntEspecial++;}
-			| ;
+			| error classe             
+    		| 
+    		;
+
 
 classe_primitiva: CLASSE_RESERVADA CLASSE subclassof disjointclasses individuos;
 
@@ -178,10 +181,7 @@ int main(int argc, char ** argv)
 
 void yyerror(const char * s)
 {
-	  
-
-	extern char * yytext;   
+    extern char * yytext;   
     cout << ANSI_COLOR_YELLOW << "\nErro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
-	//cout << "\nQuantidade de classes: " + qntClasses;
 
 }
