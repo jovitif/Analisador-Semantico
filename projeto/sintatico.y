@@ -18,7 +18,7 @@ extern int yylineno;
 
 /* cada letra do alfabeto é uma variável */
 double variables[26];
-
+extern char * yytext;   
 int qntClasses = 0;
 int qntDefinida = 0;
 int qntPrimitiva = 0;
@@ -27,6 +27,8 @@ int qntCoberta = 0;
 int qntAxiomaDeFechamento = 0;
 int qntAninhada = 0;
 int qntEspecial = 0;
+string motivoError = "";
+char classeatual[50];
 bool aninhada = false;
 bool fechamento =false;
 int linhaAtual = 0;
@@ -69,7 +71,12 @@ classe:  classe classe_primitiva { saida("uma classe primitiva ");   qntClasses+
     		;
 
 
-classe_primitiva: CLASSE_RESERVADA CLASSE subclassof disjointclasses individuos;
+classe_primitiva: classe_id subclassof classe_primitiva_disjointclasses_individuos;
+
+
+classe_primitiva_disjointclasses_individuos: disjointclasses individuos {motivoError = "É para respeitar a ordem de disjointclasses e individuos";};
+
+
 
 classe_coberta: CLASSE_RESERVADA CLASSE coberta
 			|CLASSE_RESERVADA CLASSE coberta individuos;
@@ -91,7 +98,10 @@ classe_definida: CLASSE_RESERVADA CLASSE equivalentto disjointclasses individuos
 classe_especial: CLASSE_RESERVADA CLASSE disjointclasses
 			| CLASSE_RESERVADA CLASSE equivalentto subclassof disjointclasses individuos;
 
-subclassof: SUBCLASSOF_RESERVADA definicao ;
+classe_id:  CLASSE_RESERVADA CLASSE 
+    ;
+
+subclassof:  SUBCLASSOF_RESERVADA definicao ;
 
 equivalentto: EQUIVALENT_RESERVADA definicao;
 
@@ -197,8 +207,14 @@ int main(int argc, char ** argv)
 void yyerror(const char * s)
 {
 	erros++;
-    extern char * yytext;   
-    cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro (" << s << "): símbolo \"" << yytext << "\" (linha " << yylineno << ")";
+    
+	if(motivoError == ""){
+	cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro (" << s << "): motivo \"" << yytext << "\" (linha " << yylineno << ")";
 	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
-
+	}else{
+	cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro semantico: motivo \"" << motivoError << "\" (linha " << yylineno << ") Classe: " << classeatual;
+	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
+	motivoError = "";
+	}
+    
 }
