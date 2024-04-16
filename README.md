@@ -1,16 +1,10 @@
-<h1>Implementação de um Analisador Sintático para OWL Manchester Syntax</h1>
-<h2>Objetivo</h2>
-<p>Especificar um analisador sintático somente para a análise de declarações de classes na linguagem OWL, de acordo com o formato Manchester Syntax, de acordo com as seguintes diretrizes:
-
-Os exemplos acima dão noções de como uma classe pode ser declarada;
-
-Elaborar uma gramática livre de contexto, sem ambiguidade, fatorada e sem recursividade à esquerda;
-
-Construir uma tabela de análise preditiva (para implementação manual) ou utilizar um gerador de analisador sintático com base em análise ascendente;
-
-Simular a leitura de uma especificação de classe como entrada para verificação da consistência da declaração da classe;
-
-Por “consistência”, entende-se que a declaração das classes seguem uma ordem que varia de acordo com o tipo de classe (p.ex.: separação dos nomes das classes por vírgulas nas classes enumeradas, disjunções entre as subclasses de uma classe coberta, separação de cláusulas pela palavra-chave AND ou por espaçamento, no caso das classes definidas e primitivas, respectivamente).</p>
+<h1>Implementação de um Analisador Semântico para OWL Manchester Syntax</h1>
+<h2>Desafio</h2>
+<p>o projeto consiste estender o analisador sintático com análise semântica de forma a ajudar um
+ontologista a: (1) escrever as declarações usando a ordem correta dos operadores de cabeçalho (Class,
+SubclassOf, EquivalentTo, DisjointClasses, Individuals); (2) escrever corretamente os tipos e seus respectivos
+intervalos que compõem as data properties; e (3) classificar as propriedades em data properties e object
+properties, por sobrecarregamento).</p>
 
 <h2>Equipe</h2>
 <ul>
