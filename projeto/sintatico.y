@@ -6,7 +6,6 @@
 #include <cstdlib>
 using namespace std;
 
-
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
@@ -15,6 +14,7 @@ extern int yylineno;
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_BLUE    "\x1b[34m" 
 
 /* cada letra do alfabeto é uma variável */
 double variables[26];
@@ -28,6 +28,7 @@ int qntAxiomaDeFechamento = 0;
 int qntAninhada = 0;
 int qntEspecial = 0;
 string motivoError = "";
+char sobrecarregamento[50];
 char classeatual[50];
 bool aninhada = false;
 bool fechamento =false;
@@ -74,9 +75,7 @@ classe:  classe classe_primitiva { saida("uma classe primitiva ");   qntClasses+
 classe_primitiva: classe_id subclassof classe_primitiva_disjointclasses_individuos;
 
 
-classe_primitiva_disjointclasses_individuos: disjointclasses individuos {motivoError = "É para respeitar a ordem de disjointclasses e individuos";};
-
-
+classe_primitiva_disjointclasses_individuos: disjointclasses individuos;
 
 classe_coberta: CLASSE_RESERVADA CLASSE coberta
 			|CLASSE_RESERVADA CLASSE coberta individuos;
@@ -106,8 +105,8 @@ subclassof:  SUBCLASSOF_RESERVADA definicao ;
 equivalentto: EQUIVALENT_RESERVADA definicao;
 
 definicao: CLASSE virgula definicao
-			| propriedade reservada CLASSE virgula definicao 
-			| propriedade reservada TIPODADO virgula definicao
+			| propriedade reservada CLASSE {strcpy(sobrecarregamento,yytext); cout << "sobrecarga object property " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
+			| propriedade reservada TIPODADO {strcpy(sobrecarregamento,yytext); cout << "sobrecarga data property " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
 			| CLASSE and;
 			| parenteses and;
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true;}
@@ -117,6 +116,7 @@ definicao: CLASSE virgula definicao
 			| propriedade reservada TIPODADO ABRECOLCHETE op NUM FECHACOLCHETE virgula definicao
 			| CLASSE OR_RESERVADA definicao
 			| ;
+//{strcpy(sobrecarregamento,yytext); cout << "sobrecarga data property " << sobrecarregamento << " na linha " << yylineno <<endl;}
 
 and: AND_RESERVADA parenteses virgula definicao and
 			| AND_RESERVADA definicao and|;
@@ -209,12 +209,11 @@ void yyerror(const char * s)
 	erros++;
     
 	if(motivoError == ""){
-	cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro (" << s << "): motivo \"" << yytext << "\" (linha " << yylineno << ")";
+	cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": Erro (" << s << "): motivo \"" << yytext << "\" (linha " << yylineno << ")";
 	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 	}else{
 	cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro semantico: motivo \"" << motivoError << "\" (linha " << yylineno << ") Classe: " << classeatual;
 	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 	motivoError = "";
 	}
-    
 }
