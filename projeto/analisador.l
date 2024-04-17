@@ -6,6 +6,9 @@
 using std::cout;
 using std::cin;
 using std::string;
+
+string classeAtual;
+string propriedadeAtual;
 %}
 
 %option yylineno
@@ -18,6 +21,7 @@ propriedade_has (has[A-Za-z]+)
 propriedade_isof {propriedade}("is"[A-Z][a-zA-Z_]+"of")
 classe [A-Z][a-zA-Z_]+
 tipoDado (owl|rdfs|xsd):[A-Za-z0-9_]+
+inicioClasse "Class:"[[:space:]]+{classe}
 
 %%
 [ \t\n]+ ;
@@ -32,7 +36,7 @@ exactly return EXACTLY_RESERVADA;
 that return THAT_RESERVADA;
 not  return NOT_RESERVADA;
 and  return AND_RESERVADA;
-Class: return CLASSE_RESERVADA;
+{inicioClasse}  { classeAtual = yytext;  return CLASSE_RESERVADA;}
 EquivalentTo:  return EQUIVALENT_RESERVADA;
 Individuals: return INDIVIDUALS_RESERVADA;
 SubClassOf: return SUBCLASSOF_RESERVADA;
@@ -51,11 +55,11 @@ DisjointClasses: return DISJOINTCLASSES_RESERVADA;
 "<=" return op;
 "<>" return op;
 {numero}   return NUM; 
-{propriedade_isof}  return PROPRIEDADE_ISOF;
-{propriedade_has}  return PROPRIEDADE_HAS;
-{propriedade} return PROPRIEDADE;
+{propriedade_isof}  { propriedadeAtual = yytext; return PROPRIEDADE_ISOF;}
+{propriedade_has}  { propriedadeAtual = yytext; return PROPRIEDADE_HAS;}
+{propriedade} { propriedadeAtual = yytext; return PROPRIEDADE;}
 {tipoDado} return TIPODADO;
-{classe}   return CLASSE; 
+{classe} return CLASSE; 
 {individuo} return INDIVIDUO; 
 
 %%

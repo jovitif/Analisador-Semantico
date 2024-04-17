@@ -19,6 +19,9 @@ extern int yylineno;
 /* cada letra do alfabeto é uma variável */
 double variables[26];
 extern char * yytext;   
+extern string classeAtual;
+extern string propriedadeAtual;
+int teste;
 int qntClasses = 0;
 int qntDefinida = 0;
 int qntPrimitiva = 0;
@@ -29,7 +32,6 @@ int qntAninhada = 0;
 int qntEspecial = 0;
 string motivoError = "";
 char sobrecarregamento[50];
-char classeatual[50];
 bool aninhada = false;
 bool fechamento =false;
 int linhaAtual = 0;
@@ -37,7 +39,7 @@ int erros = 0;
 
 void saida(string saida){
 	
-	cout << "|linha " << linhaAtual << ": ";  linhaAtual = yylineno;
+	cout << "|linha " << linhaAtual << " | ";  linhaAtual = yylineno;
 	cout << saida;
  	if(aninhada == true){
 		cout << "com aninhamento "; 
@@ -62,7 +64,7 @@ void saida(string saida){
 
 %%
 
-classe:  classe classe_primitiva { saida("uma classe primitiva ");   qntClasses++; qntPrimitiva++;}
+classe:  classe classe_primitiva { saida(classeAtual +" | uma classe primitiva ");   qntClasses++; qntPrimitiva++;}
 			| classe  classe_coberta { saida("uma classe coberta "); qntClasses++; qntCoberta++;}
 			| classe  classe_enumerada  { saida("uma classe enumerada "); qntClasses++; qntEnumerada++;}
 			| classe classe_definida {saida("uma classe definida "); qntClasses++; qntDefinida++;}
@@ -72,32 +74,31 @@ classe:  classe classe_primitiva { saida("uma classe primitiva ");   qntClasses+
     		;
 
 
-classe_primitiva: classe_id subclassof classe_primitiva_disjointclasses_individuos;
+classe_primitiva: classe_id subclassof disjointclasses individuos;
 
 
-classe_primitiva_disjointclasses_individuos: disjointclasses individuos;
 
-classe_coberta: CLASSE_RESERVADA CLASSE coberta
-			|CLASSE_RESERVADA CLASSE coberta individuos;
+classe_coberta: CLASSE_RESERVADA  coberta
+			|CLASSE_RESERVADA  coberta individuos;
 
 coberta:  EQUIVALENT_RESERVADA coberta_lista;
 
 coberta_lista: CLASSE OR_RESERVADA coberta_lista 
 			|CLASSE;
 
-classe_enumerada: CLASSE_RESERVADA CLASSE enumerada;
+classe_enumerada: CLASSE_RESERVADA  enumerada;
 
 enumerada: EQUIVALENT_RESERVADA ABRECHAVE enumerada_lista FECHACHAVE;
 
 enumerada_lista: CLASSE VIRGULA enumerada_lista 
 			| CLASSE;
 
-classe_definida: CLASSE_RESERVADA CLASSE equivalentto disjointclasses individuos;
+classe_definida: CLASSE_RESERVADA  equivalentto disjointclasses individuos;
 
-classe_especial: CLASSE_RESERVADA CLASSE disjointclasses
-			| CLASSE_RESERVADA CLASSE equivalentto subclassof disjointclasses individuos;
+classe_especial: CLASSE_RESERVADA  disjointclasses
+			| CLASSE_RESERVADA  equivalentto subclassof disjointclasses individuos;
 
-classe_id:  CLASSE_RESERVADA CLASSE 
+classe_id:  CLASSE_RESERVADA  
     ;
 
 subclassof:  SUBCLASSOF_RESERVADA definicao ;
@@ -105,8 +106,8 @@ subclassof:  SUBCLASSOF_RESERVADA definicao ;
 equivalentto: EQUIVALENT_RESERVADA definicao;
 
 definicao: CLASSE virgula definicao
-			| propriedade reservada CLASSE {strcpy(sobrecarregamento,yytext); cout << "sobrecarga do tipo (object property) " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
-			| propriedade reservada TIPODADO {strcpy(sobrecarregamento,yytext); cout << "sobrecarga do tipo (data property) " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
+			| propriedade reservada CLASSE { cout << "sobrecarga do tipo (object property) " << propriedadeAtual << " na linha " << yylineno <<endl;} virgula definicao 
+			| propriedade reservada TIPODADO {cout << "sobrecarga do tipo (data property) " << propriedadeAtual << " na linha " << yylineno <<endl;} virgula definicao 
 			| CLASSE and;
 			| parenteses and;
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true;}
@@ -142,7 +143,7 @@ disjointclasses: DISJOINTCLASSES_RESERVADA disjointclasses_lista
 disjointclasses_lista:   CLASSE VIRGULA disjointclasses_lista
 			| CLASSE;
 
-individuos: INDIVIDUALS_RESERVADA individuos_lista 
+individuos: INDIVIDUALS_RESERVADA  individuos_lista 
 			| ; 
 
 individuos_lista: individuos_lista VIRGULA INDIVIDUO 
@@ -208,11 +209,12 @@ void yyerror(const char * s)
 {
 	erros++;
     
+
 	if(motivoError == ""){
-	cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": Erro (" << s << "): motivo \"" << yytext << "\" (linha " << yylineno << ")";
+	cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro (" << s << "): motivo \"" << yytext << "\" (linha " << yylineno << ")";
 	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 	}else{
-	cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": Erro semantico: motivo \"" << motivoError << "\" (linha " << yylineno << ") Classe: " << classeatual;
+	cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual <<  ": Erro semantico: motivo \"" << motivoError << "\" (linha " << yylineno << ")" ;
 	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 	motivoError = "";
 	}
