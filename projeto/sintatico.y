@@ -105,8 +105,8 @@ subclassof:  SUBCLASSOF_RESERVADA definicao ;
 equivalentto: EQUIVALENT_RESERVADA definicao;
 
 definicao: CLASSE virgula definicao
-			| propriedade reservada CLASSE {strcpy(sobrecarregamento,yytext); cout << "sobrecarga object property " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
-			| propriedade reservada TIPODADO {strcpy(sobrecarregamento,yytext); cout << "sobrecarga data property " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
+			| propriedade reservada CLASSE {strcpy(sobrecarregamento,yytext); cout << "sobrecarga do tipo (object property) " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
+			| propriedade reservada TIPODADO {strcpy(sobrecarregamento,yytext); cout << "sobrecarga do tipo (data property) " << sobrecarregamento << " na linha " << yylineno <<endl;} virgula definicao 
 			| CLASSE and;
 			| parenteses and;
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true;}
