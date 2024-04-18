@@ -30,6 +30,7 @@ extern string intervaloAtual;
 extern string numAtual;
 extern string quantificadorAtual;
 extern string nomeClasseAtual;
+char isPropriedade[10];
 int precedencia = 0;
 bool PrecedenciaFechamento = false;
 int qntClasses = 0;
@@ -41,6 +42,7 @@ int qntAxiomaDeFechamento = 0;
 int qntAninhada = 0;
 int qntEspecial = 0;
 char sobrecarregamento[50];
+bool semanticError = false;
 bool aninhada = false;
 bool fechamento =false;
 int linhaAtual = 0;
@@ -158,18 +160,17 @@ subclassof:  SUBCLASSOF_RESERVADA  {precedencia = 3;} definicao  ;
 equivalentto:  EQUIVALENT_RESERVADA definicao {precedencia = 2;};
 
 definicao: CLASSE virgula definicao
-			| propriedade reservada CLASSE { cout << "|sobrecarga do tipo (object property) " << propriedadeAtual << " na linha " << yylineno << "|" << endl;} virgula definicao 
-			| propriedade reservada TIPODADO {cout << "|sobrecarga do tipo (data property) " << propriedadeAtual << " na linha " << yylineno <<  "|"<<endl;} virgula definicao 
+			| propriedade reservada CLASSE { cout << ANSI_COLOR_BLUE << "|sobrecarga do tipo (object property) " << propriedadeAtual << " na linha " << yylineno << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
+			| propriedade reservada TIPODADO {cout << ANSI_COLOR_BLUE << "|sobrecarga do tipo (data property) " << propriedadeAtual << " na linha " << yylineno << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
 			| CLASSE and;
 			| parenteses and;
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true; PrecedenciaFechamento = true;} 
 			| parenteses definicao
-			| propriedade quantificador NUM CLASSE virgula definicao { cout << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << "|" << endl; }
-			| propriedade quantificador NUM TIPODADO virgula definicao { cout << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << "|" << endl; }
-			| propriedade reservada TIPODADO ABRECOLCHETE op NUM FECHACOLCHETE { cout << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << "|" << endl;} virgula definicao 
+			| propriedade quantificador NUM CLASSE virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << ANSI_COLOR_RESET << "|" << endl; }
+			| propriedade quantificador NUM TIPODADO virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl; }
+			| propriedade reservada TIPODADO ABRECOLCHETE op NUM FECHACOLCHETE { cout << ANSI_COLOR_BLUE << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
 			| CLASSE OR_RESERVADA definicao
 			| ;
-//{strcpy(sobrecarregamento,yytext); cout << "sobrecarga data property " << sobrecarregamento << " na linha " << yylineno <<endl;}
 
 and: AND_RESERVADA parenteses virgula definicao and
 			| AND_RESERVADA definicao and|;
@@ -185,9 +186,9 @@ fechamento:  propriedade ONLY_RESERVADA CLASSE
 			| propriedade ONLY_RESERVADA parenteses  
 
 
-reservada: SOME_RESERVADA 
-			| VALUE_RESERVADA
-			| ALL_RESERVADA;
+reservada: SOME_RESERVADA {strcpy(isPropriedade, yytext); }
+			| VALUE_RESERVADA {strcpy(isPropriedade, yytext); }
+			| ALL_RESERVADA {strcpy(isPropriedade, yytext); };
 
 disjointclasses: DISJOINTCLASSES_RESERVADA  disjointclasses_lista {precedencia = 4;}
 			| ;
@@ -233,7 +234,7 @@ int main(int argc, char ** argv)
         yyin = file;
 
 	}
-	cout << "\nRealizando analise sintatica...\n\n";
+	cout << "\nRealizando analise semantica...\n\n";
 	 yyparse();
 	cout << "\nCONTAGEM DE CLASSES E ERROS\n";
 	cout << "\n|-----------------------------------------------------------------|";
@@ -258,19 +259,24 @@ int main(int argc, char ** argv)
 }
 
 void syntax(const char *s){
+	if(strcmp(isPropriedade,"some") == 0 ||strcmp(isPropriedade,"value") == 0 || strcmp(isPropriedade,"all") == 0 ){
+		cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: ser classe ou tipo de dado depois do "<< isPropriedade <<   "(linha " << yylineno << ")";
+		cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
+		strcpy(isPropriedade, " ");
+	}else{
 	cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro (" << s << "): motivo: \"" << yytext << "\" (linha " << yylineno << ")";
 	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
+	}
 }
+
 void yyerror(const char * s)
 {
-
-	
 	erros++;
 	if(PrecedenciaFechamento){
 		PrecedenciaFechamento = false;
 		regex propriedade("[a-z][A-Za-z]*");
 			if(regex_match(yytext,propriedade)){
-				cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: axiomas de fechamento só podem aparecer depois de declarações existenciais de propriedades" <<   "(linha " << yylineno << ")";
+				cout << ANSI_COLOR_YELLOW << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: axiomas de fechamento só podem aparecer depois de declarações existenciais de propriedades" <<   "(linha " << yylineno << ")";
 				cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 			}
 			else{
@@ -282,7 +288,7 @@ void yyerror(const char * s)
 				case 0:
 				
 					if(strcmp(yytext,"EquivalentTo:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
-						cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser class: em vez de "<< yytext <<   "(linha " << yylineno << ")";
+						cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser class: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 					}
 					else{
@@ -292,7 +298,7 @@ void yyerror(const char * s)
 				case 1:
 				
 					if(strcmp(yytext,"Class:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
-						cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser EquivalentTo: em vez de "<< yytext <<   "(linha " << yylineno << ")";
+						cout << ANSI_COLOR_YELLOW   << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser EquivalentTo: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 					}
 					else{
@@ -302,7 +308,7 @@ void yyerror(const char * s)
 				case 2:
 				
 					if(strcmp(yytext,"Class:") == 0 || strcmp(yytext,"EquivalentTo:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
-							cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser SubClassOf: em vez de "<< yytext <<   "(linha " << yylineno << ")";
+							cout << ANSI_COLOR_YELLOW   << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser SubClassOf: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 							cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 						}
 						else{
@@ -311,7 +317,7 @@ void yyerror(const char * s)
 						break;
 				case 3:
 					if(strcmp(yytext,"Class:") == 0 || strcmp(yytext,"EquivalentTo:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"Individuals:") == 0){
-						cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser DisjointClasses: em vez de "<< yytext <<   "(linha " << yylineno << ")";
+						cout << ANSI_COLOR_YELLOW   << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser DisjointClasses: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 					}
 					else{
@@ -321,7 +327,7 @@ void yyerror(const char * s)
 				case 4:
 				
 					if(strcmp(yytext,"Class:") == 0 || strcmp(yytext,"EquivalentTo:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0){
-						cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser Individuals: em vez de "<< yytext <<   "(linha " << yylineno << ")";
+						cout << ANSI_COLOR_YELLOW   << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser Individuals: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 					}
 					else{
