@@ -619,13 +619,13 @@ using std::cout;
 using std::cin;
 using std::string;
 
-string classeAtual;
-string propriedadeAtual;
-string tipoDadoAtual;
-string intervaloAtual;
-string numAtual; 
-string quantificadorAtual;
-string nomeClasseAtual;
+string classeAtual = " ";
+string propriedadeAtual = " ";
+string tipoDadoAtual = " ";
+string intervaloAtual = " ";
+string numAtual = " "; 
+string quantificadorAtual = " ";
+string nomeClasseAtual = " ";
 #line 630 "lex.yy.c"
 #line 631 "lex.yy.c"
 

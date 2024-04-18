@@ -7,13 +7,13 @@ using std::cout;
 using std::cin;
 using std::string;
 
-string classeAtual;
-string propriedadeAtual;
-string tipoDadoAtual;
-string intervaloAtual;
-string numAtual; 
-string quantificadorAtual;
-string nomeClasseAtual;
+string classeAtual = " ";
+string propriedadeAtual = " ";
+string tipoDadoAtual = " ";
+string intervaloAtual = " ";
+string numAtual = " "; 
+string quantificadorAtual = " ";
+string nomeClasseAtual = " ";
 %}
 
 

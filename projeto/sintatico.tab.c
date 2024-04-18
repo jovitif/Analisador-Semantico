@@ -1390,13 +1390,13 @@ yyreduce:
 
   case 36: /* definicao: propriedade quantificador NUM CLASSE virgula definicao  */
 #line 170 "sintatico.y"
-                                                                                 { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << ANSI_COLOR_RESET << "|" << endl; }
+                                                                                 { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << ANSI_COLOR_RESET << "|" << endl; numAtual = " "; quantificadorAtual = " ";}
 #line 1395 "sintatico.tab.c"
     break;
 
   case 37: /* definicao: propriedade quantificador NUM TIPODADO virgula definicao  */
 #line 171 "sintatico.y"
-                                                                                   { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl;}
+                                                                                   { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl; numAtual = " "; quantificadorAtual = " "; }
 #line 1401 "sintatico.tab.c"
     break;
 
@@ -1408,7 +1408,7 @@ yyreduce:
 
   case 39: /* $@6: %empty  */
 #line 172 "sintatico.y"
-                                                                                                              {colchete = false; cout << ANSI_COLOR_BLUE << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << ANSI_COLOR_RESET << "|" << endl;}
+                                                                                                              {colchete = false; cout << ANSI_COLOR_BLUE << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << ANSI_COLOR_RESET << "|" << endl; strcpy(isPropriedade, " "); numAtual = " "; intervaloAtual = " ";}
 #line 1413 "sintatico.tab.c"
     break;
 
@@ -1686,13 +1686,24 @@ int main(int argc, char ** argv)
 }
 
 void syntax(const char *s){
-	if(strcmp(isPropriedade,"some") == 0 && colchete == false ||strcmp(isPropriedade,"value") == 0 || strcmp(isPropriedade,"all") == 0 ){
+	if(  strcmp(isPropriedade,"some") == 0  && colchete == false   ||strcmp(isPropriedade,"value") == 0 || strcmp(isPropriedade,"all") == 0 ){
 		cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: ser classe ou tipo de dado depois do "<< isPropriedade <<   "(linha " << yylineno << ")";
 		cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 		strcpy(isPropriedade, " ");
-	}else{
-	cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro (" << s << "): motivo: \"" << yytext << "\" (linha " << yylineno << ")";
-	cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
+	}else if(colchete == true && numAtual == " " || colchete == true &&  intervaloAtual == " " || colchete == true && numAtual == " " && intervaloAtual == " ") {
+		cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: é necessário informar um intervalo depois do "<< isPropriedade <<   "(linha " << yylineno << ")";
+		cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
+		numAtual = " ";
+		intervaloAtual = " ";
+	}
+	else if(quantificadorAtual != " " && numAtual == " " && colchete == false ){
+		cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: é necessário informar um numero depois do  "<< quantificadorAtual <<   "(linha " << yylineno << ")";
+		cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
+		quantificadorAtual = " ";
+	}
+	else{
+		cout << ANSI_COLOR_RED  << "|linha " << yylineno << ": " << classeAtual << "  Erro (" << s << "): motivo: \"" << yytext << "\" (linha " << yylineno << ")";
+		cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 	}
 }
 
