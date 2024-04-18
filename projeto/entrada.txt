@@ -1,10 +1,11 @@
 Class: Customer
 
+    
     EquivalentTo:
         Person
          and (purchasedPizza some Pizza)
          and (hasPhone some xsd:string)
-         
+
     Individuals:
         Customer1,
         Customer10,
@@ -16,6 +17,7 @@ Class: Customer
         Customer7,
         Customer8,
         Customer9
+
 
 Class: Employee
 
@@ -113,9 +115,9 @@ Class: MargheritaPizza
         NamedPizza,
         hasTopping some MozzarellaTopping,
         hasTopping some TomatoTopping,
-        hasTopping only 
+         hasTopping only 
             (MozzarellaTopping or TomatoTopping)
-    
+        
     DisjointClasses:
         AmericanaHotPizza, AmericanaPizza, MargheritaPizza, SohoPizza
     

@@ -57,8 +57,8 @@ extern int yydebug;
     CLASSE = 258,                  /* CLASSE  */
     CLASSE_RESERVADA = 259,        /* CLASSE_RESERVADA  */
     PROPRIEDADE = 260,             /* PROPRIEDADE  */
-    PROPRIEDADE_ISOF = 261,        /* PROPRIEDADE_ISOF  */
-    PROPRIEDADE_HAS = 262,         /* PROPRIEDADE_HAS  */
+    PROPRIEDADE_HAS = 261,         /* PROPRIEDADE_HAS  */
+    PROPRIEDADE_ISOF = 262,        /* PROPRIEDADE_ISOF  */
     TIPODADO = 263,                /* TIPODADO  */
     NUM = 264,                     /* NUM  */
     INDIVIDUO = 265,               /* INDIVIDUO  */
