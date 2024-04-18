@@ -155,13 +155,13 @@ classe_especial: classe_id   disjointclasses
 
 classe_id: {cout << "|linha " << linhaAtual << " | " << classeAtual << " | " << endl; }  CLASSE_RESERVADA  {precedencia = 1;};
 
-subclassof:  SUBCLASSOF_RESERVADA  {precedencia = 3;} definicao  ;
+subclassof:  SUBCLASSOF_RESERVADA  {precedencia = 3;} definicao  
 
-equivalentto:  EQUIVALENT_RESERVADA definicao {precedencia = 2;};
+equivalentto:  EQUIVALENT_RESERVADA   definicao {precedencia = 2;}
 
 definicao: CLASSE virgula definicao
-			| propriedade reservada CLASSE { cout << ANSI_COLOR_BLUE << "|sobrecarga do tipo (object property) " << propriedadeAtual << " na linha " << yylineno << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
-			| propriedade reservada TIPODADO {cout << ANSI_COLOR_BLUE << "|sobrecarga do tipo (data property) " << propriedadeAtual << " na linha " << yylineno << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
+			| propriedade reservada CLASSE {  cout << ANSI_COLOR_BLUE << "|sobrecarga do tipo (object property) " << propriedadeAtual << " na linha " << yylineno << ANSI_COLOR_RESET << "|" << endl; strcpy(isPropriedade, " "); } virgula definicao 
+			| propriedade reservada TIPODADO { cout << ANSI_COLOR_BLUE << "|sobrecarga do tipo (data property) " << propriedadeAtual << " na linha " << yylineno << ANSI_COLOR_RESET << "|" << endl; strcpy(isPropriedade, " "); } virgula definicao 
 			| CLASSE and;
 			| parenteses and;
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true; PrecedenciaFechamento = true;} 
@@ -205,8 +205,7 @@ individuos_lista: individuos_lista VIRGULA INDIVIDUO
 propriedade: PROPRIEDADE 
 			| PROPRIEDADE_ISOF 
 			| PROPRIEDADE_HAS 
-			| PROPRIEDADE PROPRIEDADE 
-			| ;
+			| PROPRIEDADE PROPRIEDADE ;
 
 quantificador: MIN_RESERVADA
 			| MAX_RESERVADA
