@@ -45,6 +45,7 @@ char sobrecarregamento[50];
 bool semanticError = false;
 bool aninhada = false;
 bool fechamento =false;
+bool colchete = false;
 int linhaAtual = 0;
 int erros = 0;
 
@@ -167,8 +168,8 @@ definicao: CLASSE virgula definicao
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true; PrecedenciaFechamento = true;} 
 			| parenteses definicao
 			| propriedade quantificador NUM CLASSE virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << ANSI_COLOR_RESET << "|" << endl; }
-			| propriedade quantificador NUM TIPODADO virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl; }
-			| propriedade reservada TIPODADO ABRECOLCHETE op NUM FECHACOLCHETE { cout << ANSI_COLOR_BLUE << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
+			| propriedade quantificador NUM TIPODADO virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl;}
+			| propriedade reservada TIPODADO ABRECOLCHETE {colchete = true;} op NUM FECHACOLCHETE {colchete = false; cout << ANSI_COLOR_BLUE << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << ANSI_COLOR_RESET << "|" << endl;} virgula definicao 
 			| CLASSE OR_RESERVADA definicao
 			| ;
 
@@ -258,7 +259,7 @@ int main(int argc, char ** argv)
 }
 
 void syntax(const char *s){
-	if(strcmp(isPropriedade,"some") == 0 ||strcmp(isPropriedade,"value") == 0 || strcmp(isPropriedade,"all") == 0 ){
+	if(strcmp(isPropriedade,"some") == 0 && colchete == false ||strcmp(isPropriedade,"value") == 0 || strcmp(isPropriedade,"all") == 0 ){
 		cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: ser classe ou tipo de dado depois do "<< isPropriedade <<   "(linha " << yylineno << ")";
 		cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
 		strcpy(isPropriedade, " ");
