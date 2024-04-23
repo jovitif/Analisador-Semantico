@@ -122,11 +122,11 @@ string operador(string operador){
 
 
 
-classe:  classe   classe_primitiva { precedencia = 0;  saida("| uma classe primitiva|");   qntClasses++; qntPrimitiva++;}
-			| classe  classe_coberta { precedencia = 0; saida("| uma classe coberta|");  qntClasses++; qntCoberta++;}
-			| classe  classe_enumerada  { precedencia = 0; saida( "| uma classe enumerada|")  ;qntClasses++; qntEnumerada++;}
-			| classe  classe_definida { precedencia = 0; saida("| uma classe definida|");  qntClasses++; qntDefinida++;}
-			| classe classe_especial { precedencia = 0; saida("| uma classe especial|");  qntClasses++;qntEspecial++;}
+classe:  classe   classe_primitiva { saida("| uma classe primitiva|");   qntClasses++; qntPrimitiva++;}
+			| classe  classe_coberta {saida("| uma classe coberta|");  qntClasses++; qntCoberta++;}
+			| classe  classe_enumerada  {saida( "| uma classe enumerada|")  ;qntClasses++; qntEnumerada++;}
+			| classe  classe_definida {saida("| uma classe definida|");  qntClasses++; qntDefinida++;}
+			| classe classe_especial {saida("| uma classe especial|");  qntClasses++;qntEspecial++;}
 			| error classe             
     		| 
     		;
@@ -297,7 +297,6 @@ void yyerror(const char * s)
 	else{
 		switch (precedencia){
 				case 0:
-				
 					if(strcmp(yytext,"EquivalentTo:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
 						cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser class: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
@@ -307,7 +306,7 @@ void yyerror(const char * s)
 					}
 					break;
 				case 1:
-				
+					
 					if(strcmp(yytext,"Class:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
 						cout << ANSI_COLOR_YELLOW   << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser EquivalentTo: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";

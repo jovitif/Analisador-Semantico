@@ -1318,31 +1318,31 @@ yyreduce:
     {
   case 2: /* classe: classe classe_primitiva  */
 #line 125 "sintatico.y"
-                                   { precedencia = 0;  saida("| uma classe primitiva|");   qntClasses++; qntPrimitiva++;}
+                                   { saida("| uma classe primitiva|");   qntClasses++; qntPrimitiva++;}
 #line 1323 "sintatico.tab.c"
     break;
 
   case 3: /* classe: classe classe_coberta  */
 #line 126 "sintatico.y"
-                                                 { precedencia = 0; saida("| uma classe coberta|");  qntClasses++; qntCoberta++;}
+                                                 {saida("| uma classe coberta|");  qntClasses++; qntCoberta++;}
 #line 1329 "sintatico.tab.c"
     break;
 
   case 4: /* classe: classe classe_enumerada  */
 #line 127 "sintatico.y"
-                                                    { precedencia = 0; saida( "| uma classe enumerada|")  ;qntClasses++; qntEnumerada++;}
+                                                    {saida( "| uma classe enumerada|")  ;qntClasses++; qntEnumerada++;}
 #line 1335 "sintatico.tab.c"
     break;
 
   case 5: /* classe: classe classe_definida  */
 #line 128 "sintatico.y"
-                                                  { precedencia = 0; saida("| uma classe definida|");  qntClasses++; qntDefinida++;}
+                                                  {saida("| uma classe definida|");  qntClasses++; qntDefinida++;}
 #line 1341 "sintatico.tab.c"
     break;
 
   case 6: /* classe: classe classe_especial  */
 #line 129 "sintatico.y"
-                                                 { precedencia = 0; saida("| uma classe especial|");  qntClasses++;qntEspecial++;}
+                                                 {saida("| uma classe especial|");  qntClasses++;qntEspecial++;}
 #line 1347 "sintatico.tab.c"
     break;
 
@@ -1724,7 +1724,6 @@ void yyerror(const char * s)
 	else{
 		switch (precedencia){
 				case 0:
-				
 					if(strcmp(yytext,"EquivalentTo:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
 						cout << ANSI_COLOR_YELLOW  << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser class: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
@@ -1734,7 +1733,7 @@ void yyerror(const char * s)
 					}
 					break;
 				case 1:
-				
+					
 					if(strcmp(yytext,"Class:") == 0 || strcmp(yytext,"SubClassOf:") == 0 || strcmp(yytext,"DisjointClasses:") == 0 || strcmp(yytext,"Individuals:") == 0){
 						cout << ANSI_COLOR_YELLOW   << "|linha " << yylineno << ": " << classeAtual << "  Erro( semantic error ): motivo: deveria ser EquivalentTo: em vez de "<< yytext <<   "(linha " << yylineno << ")";
 						cout << ANSI_COLOR_RESET << "\n|-----------------------------------------------------------------|\n";
