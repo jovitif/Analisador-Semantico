@@ -23,7 +23,7 @@ properties, por sobrecarregamento).</p>
   </li>
   <li>
     <p>Após o projeto salvo é necessário entrar dentro da pasta Analisador-Sintatico e em seguida entrar na pasta projeto</p>
-    <code>cd Analisador-Sintatico/</code>
+    <code>cd Analisador-Semantico/</code>
      <code>cd projeto/</code>
   </li>
   <li>
@@ -41,7 +41,7 @@ properties, por sobrecarregamento).</p>
     <p>Dentro da pasta projeto tem 8 arquivos .txt para testes. Desses arquivos 6 são de classes separadas e 2 são de junção de várias classes</p>
   </li>
   <li>
-    <p>O programa irá gerar a análise sintática e mostrar se teve algum erro ou não encontrado no processo de análise</p>
+    <p>O programa irá gerar a análise sintática e semântica e mostrar se teve algum erro ou não encontrado no processo de análise</p>
     <p>Depois disso ele irá mostrar uma contagem de todos os tipos de classes e erros se houver algum </p>
   </li>
 </ol>
