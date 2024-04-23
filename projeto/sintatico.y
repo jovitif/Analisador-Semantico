@@ -167,8 +167,7 @@ definicao: CLASSE virgula definicao
 			| parenteses and;
 			| fechamento {qntAxiomaDeFechamento++; fechamento = true; PrecedenciaFechamento = true;} 
 			| parenteses definicao
-			| propriedade quantificador NUM CLASSE virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << ANSI_COLOR_RESET << "|" << endl; numAtual = " "; quantificadorAtual = " ";}
-			| propriedade quantificador NUM TIPODADO virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl; numAtual = " "; quantificadorAtual = " "; }
+			| definicaoQuantificador
 			| propriedade reservada TIPODADO ABRECOLCHETE {colchete = true;} op NUM FECHACOLCHETE {colchete = false; cout << ANSI_COLOR_BLUE << "|propriedade: " << propriedadeAtual << " na linha " << yylineno << " é do tipo: " << tipoDadoAtual << " e precisa ser " << intervalo(intervaloAtual) <<  numAtual  << ANSI_COLOR_RESET << "|" << endl; strcpy(isPropriedade, " "); numAtual = " "; intervaloAtual = " ";} virgula definicao 
 			| CLASSE OR_RESERVADA definicao
 			| ;
@@ -185,8 +184,11 @@ conteudo: definicao
 
 fechamento:  propriedade ONLY_RESERVADA CLASSE   
 			| propriedade ONLY_RESERVADA parenteses  
+			| propriedade ONLY_RESERVADA CLASSE virgula definicaoQuantificador
 
 
+definicaoQuantificador: | propriedade quantificador NUM CLASSE virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << nomeClasseAtual << ANSI_COLOR_RESET << "|" << endl; numAtual = " "; quantificadorAtual = " ";}
+						| propriedade quantificador NUM TIPODADO virgula definicao { cout << ANSI_COLOR_BLUE <<"|propriedade: " << propriedadeAtual << " na linha " << yylineno << " precisa ter " << operador(quantificadorAtual) << " " << numAtual << " " << tipoDadoAtual << ANSI_COLOR_RESET << "|" << endl; numAtual = " "; quantificadorAtual = " "; }
 reservada: SOME_RESERVADA {strcpy(isPropriedade, yytext); }
 			| VALUE_RESERVADA {strcpy(isPropriedade, yytext); }
 			| ALL_RESERVADA {strcpy(isPropriedade, yytext); };
